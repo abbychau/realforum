@@ -1,0 +1,117 @@
+/* had to change the position to fixed so that when the page was scrolled using scrollTo the list
+  stayed where it was originally*/
+#kbl-autocomplete-list-container .ui-autocomplete { position: fixed; cursor: default; }
+
+/* workarounds */
+* html #kbl-autocomplete-list-container .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/* Menu
+----------------------------------*/
+#kbl-autocomplete-list-container .ui-menu {
+  list-style:none;
+  padding: 2px;
+  margin: 0;
+  display:block;
+}
+
+#kbl-toolbar, #kbl-autocomplete-list-container .ui-menu .ui-menu-item a,
+#kbl-autocomplete-list-container .ui-autocomplete-category{
+  font-family: Verdana, sans-serif;
+}
+
+#kbl-autocomplete-list-container .ui-menu .ui-menu {
+  margin-top: -3px;
+}
+
+#kbl-autocomplete-list-container .ui-menu .ui-menu-item {
+  margin:0;
+  padding: 0;
+  width: 100%;
+}
+
+#kbl-autocomplete-list-container .ui-menu .ui-menu-item a {
+  text-decoration:none;
+  display:block;
+  padding:.2em .4em;
+  line-height:1.5;
+  zoom:1;
+  background-color:#555555;
+  font-size:11px;
+  color: #FFFFFF;
+  margin: 2px 2px 2px 5px;
+}
+
+#kbl-autocomplete-list-container .ui-menu .ui-menu-item a.ui-state-hover,
+#kbl-autocomplete-list-container .ui-menu .ui-menu-item a.ui-state-active {
+  margin: 2px;
+  background-color: #333333 !important;
+}
+
+#kbl-autocomplete-list-container .ui-autocomplete-category{
+  margin: 2px 2px 2px 2px;
+  font-size:13px;
+  background-color: #777777;
+}
+
+
+#kbl-autocomplete-list-container .ui-autocomplete {
+  max-height: 110px /* this effects the height of the auto complete list*/;
+  overflow-y: auto;
+  background-color: #777777;
+  -moz-box-shadow: 2px 2px 4px darkgrey;
+  -webkit-box-shadow: 2px 2px 4px darkgrey;
+  text-align: left;
+}
+
+#kbl-toolbar{
+  -moz-box-shadow: 2px 2px 4px grey;
+  -webkit-box-shadow: 2px 2px 4px grey;
+  background-color: #555555;
+  left: 0;
+  top: 0;
+  margin: auto;
+  padding: 5px;
+  position: fixed;
+  text-align:right;
+  width: 100%;
+  z-index: 1000;
+}
+
+#kbl-autocomplete-list-container .ui-corner-all{
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+#kbl-toolbar input{
+  margin-right: 50px;
+  width: 200px;
+}
+
+#kbl-toolbar #counter{
+  color: white;
+  text-shadow: 1px 1px 2px #CECECE;
+  margin-right: 20px;
+}
+
+
+.keyboardlinks-link-highlight{
+  padding: 5px;
+  border-left: 4px solid orange !important;
+  border-right: 4px solid orange !important;
+  color: #FFFFFF !important;
+  background-color: #333333 !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+/* this adds opacity to the widget when the user is selecting a link*/
+
+.link-scanning, .link-scanning ul{
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+
+
+
+

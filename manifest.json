@@ -1,0 +1,12 @@
+{  
+  "name": "Realforum Notificaion",  
+  "short_name": "RFNoti",
+  "icons": [{  
+        "src": "images/icon-192x192.jpg",  
+        "sizes": "192x192",
+        "type": "image/jpg"
+      }],  
+  "start_url": "/index.php",  
+  "display": "standalone",  
+  "gcm_sender_id": "73328766179"
+}

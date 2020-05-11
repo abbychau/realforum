@@ -1,0 +1,257 @@
+
+.blocka{display:block; padding:3px; margin:3px; }
+
+.bbcode_img{max-width:300px; max-height:300px; overflow:scroll}
+.bbcode_quote{border-left:#CCC 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_green{border-left:#383 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_red{border-left:#833 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_quote_head{padding-left:20px; border-bottom:#CCC 1px solid; padding:2px 2px 2px 5px; font-weight:bold}
+.bbcode_quote_body{ padding:5px; overflow:auto}
+.bbcode_code{border-left:#338 3px solid;width:95%; margin:5px 0 3px 0; font-size:12px}
+.bbcode_code_head{border-bottom:#CCC 1px solid; padding:2px 2px 2px 5px}
+.bbcode_code_body{padding:5px; overflow:scroll;}
+.bbcode_columns{border:#999 1px solid;border-collapse:collapse; width:100%}
+.bbcode_column{	border-width: 1px; padding: 3px; border-style: inset; border-color: #999;}
+.bbcode_auth{background:url(images/bbeditor/authuser.gif);background-repeat:no-repeat;}
+
+.navPanel{line-height: 200%;}
+
+
+/* buttons */
+
+.buttons{
+	line-height: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.buttons a
+{
+	float: left;
+	display:block;
+	padding: 4px 4px 4px 7px;
+	text-decoration: none;
+	height:25px;
+}
+.buttons a:hover{
+	text-decoration: underline;
+	background-color:none;
+}
+.noline a{
+	text-decoration: none;
+}
+
+
+.clear{clear:both;}
+.hide{display:none}
+.left{float:left}
+.right{float:right}
+.bold{font-weight:bold}
+.center{margin-left:auto;margin-right:auto}
+.pd10{padding:10px}
+.linksidefunction{font-size:12px; font-weight:100; text-decoration:none;}
+.boxtitle{padding:5px; border-bottom:solid 1px; margin-bottom:10px}
+.pd td{padding:5px; margin:0px; border-bottom:solid 1px; }
+
+.tbox{padding:7px; margin:0px; border-bottom:dashed 1px;}
+.sigbox{background-position:right top; padding-top:10px}
+
+.mainborder { margin-left:auto; margin-right:auto;}
+
+.wrapper{width:100%;}
+
+.blackshadow{-webkit-box-shadow: black 0px 0px 1em;-moz-box-shadow: black 0px 0px 1em;}
+body {
+	/*font-size: 16px;*/
+	font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+	
+	line-height: 150%;
+	margin: 0 auto;
+	padding: 0px;
+	background:#CCC;
+}
+fieldset{border:solid 1px; padding:5px}
+/* text */
+
+p {
+	line-height: 150%;
+	padding: 0px;
+}
+
+td, th {
+	font-size: 100%;
+	line-height:150%;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+.nols{list-style: none; margin-left:-20px; overflow-x:hidden}
+li {
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	margin-left: 2em;
+}
+
+
+/* links */
+a {
+	cursor:pointer;
+	text-decoration: underline;
+}
+a:hover {
+	
+	text-decoration: none;
+}
+
+/* other */
+
+img {
+	border: none;
+	vertical-align: middle;
+}
+hr {
+	height: 1px;
+	border: 0;
+	border-top: 1px solid;
+}
+
+h3{
+	font-size: 200%;
+	font-weight: bold;
+	padding: 7px 0px 7px 0px;
+	margin: 10px 0px 10px 0px;
+	border-bottom: 1px solid;
+}
+h4 {
+	font-size: 125%;
+	font-weight: bold;
+	padding: 5px 5px 5px 0px;
+	margin: 10px 0px 5px 0px;
+}
+.contentText{
+	font-size:16px; line-height:180%; padding:8px; 
+	margin-top:5px; overflow-x:hidden;
+}
+
+
+.tablepadding{
+	padding:3px;
+}
+.tablepaddingtop{
+	padding-top:18px;
+}
+.indexBlock{
+	line-height: 1.5em;
+	margin: 5px 0px 5px 0px;
+}
+.indexContent{
+	padding-left: 10px;
+	margin-bottom:0px;
+}
+
+
+
+
+
+.threadpage {margin-left:6px; padding-left:13px; background:url(/images/mp.gif) no-repeat left center;}
+.threadpage a{font-size:11px; text-decoration:none;font-family: Arial;}
+
+
+.bottomlink a{padding-right:3px; padding-left:3px}
+
+.lbdiv{
+white-space:nowrap; margin:2px; line-height:17px;
+height:52px; width:300px;float:left; overflow:hidden; padding:5px;
+}
+
+
+.boards{height:335px; overflow-y:scroll;}
+
+.tdvfnav div{padding:5px}
+
+
+
+
+.time{font-size:11px;}
+.time a{font-size:12px;}
+.titleprefix {margin-top:1px; margin-bottom:1px}
+.titleprefix a{padding:1px; margin-right:1px}
+
+.footer div{padding:5px 0 0 5px;}
+
+.authorinfo{float:left; width:125px; padding-left:5px;border-right:solid 1px; }
+
+.authorname{display:none;}
+
+.contentmodinfo{font-size:12px; border-left:3px solid; padding-left:5px; margin-top:10px}
+
+.buyspan{color:#F60; font-weight:bold; cursor:pointer;background:url(/images/coin.gif) no-repeat; background-color:#FFF; padding-left:15px;}
+
+.bg_simpleletter{background:url(/images/bg_simpleletter.png); line-height:22px;font-size:14px;}
+
+.reply{margin:1px; padding:2px; overflow:hidden}
+.threadtitlebar{padding:3px 5px 5px 5px; clear:both;}
+.threadtitlebar a{text-decoration:none}
+
+.authorbar{line-height:32px}
+
+
+.authorbarright{margin:10px 10px 0 10px; line-height:32px}
+
+
+.indexforumlistitem{white-space:nowrap; max-width:470px; overflow:hidden;}
+.ajaxbox{-webkit-box-shadow: #CCC 0px 0px 1em;-moz-box-shadow: #CCC 0px 0px 1em;position:absolute; padding:5px; display:none}
+
+
+.viewmain td{vertical-align:middle; padding:2px; line-height:150%;}
+.viewmain{border-collapse:collapse;}
+
+.articlelist a{text-decoration:none}
+.articlelist a:hover{text-decoration:underline}
+
+.bottomround{
+-webkit-border-bottom-right-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+}
+.allround{
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+
+
+.indexblockborder{
+border:1px solid; margin-bottom:5px;
+}
+
+.indexforumblocks{
+border-bottom:1px solid #DDD;
+}
+
+
+.top-only{border-right:0;border-bottom:0;border-left:0;}
+.right-only{border-top:0;border-bottom:0;border-left:0;}
+.bottom-only{border-top:0;border-right:0;border-left:0;}
+.left-only{border-top:0;border-right:0;border-bottom:0;}
+.insidebutton{left: 0.2em; margin: -8px 5px 0 0; position: absolute; top: 50%;}
+.withicon{padding-left:10px;}
+.nobottom{border-bottom:none;
+-webkit-border-bottom-right-radius: 0px;
+-webkit-border-bottom-left-radius: 0px;
+-moz-border-radius-bottomright: 0px;
+-moz-border-radius-bottomleft: 0px;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+.grayshadow{
+-webkit-box-shadow: #999 0px 0px 0.5em;-moz-box-shadow: #999 0px 0px 0.5em;
+}
+.icontext{font: italic 20px Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;}
+.onlinea{font-size:12px}
+.onlinea strong{font-size:12px}

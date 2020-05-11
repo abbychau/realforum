@@ -1,0 +1,226 @@
+/*Editor*/
+.editorWYSIWYG {font: 10pt Tahoma;border:none;}
+.editorBBCODE {font: 9pt "Courier New";}
+div.richeditor div.editbar {margin-top:2px;width:100%;}
+div.richeditor textarea{padding:0px 0px 0px 0px;border:none}
+div.richeditor iframe{border-top:none;background-color:#ffffff;border:none}
+.white-background{background:white}
+/*START*/
+.catebar{border-bottom:0}
+.catebar a{display:block; text-decoration:none;  padding:4px 7px; float:left;}
+.forumnav{padding:3px 0}
+.blocka{display:block; padding:3px; margin:3px; }
+
+.bbcode_list{padding-left:40px}
+.bbcode_wiki{font-style:italic;border-bottom:1px dashed;}
+.bbcode_img{max-width:700px; overflow:scroll}
+.bbcode_quote{border-left:#CCC 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_green{border-left:#383 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_red{border-left:#833 3px solid; width:95%; margin:5px 0 3px 0;  font-size:12px}
+.bbcode_quote{
+background:#DDD;
+opacity: 0.9; /* Safari, Opera */
+-moz-opacity:0.90: /* FireFox */
+filter: alpha(opacity=90); /* IE */}
+.bbcode_quote_head{padding-left:20px; border-bottom:#CCC 1px solid; padding:2px 2px 2px 5px; font-weight:bold}
+.bbcode_quote_body{ padding:5px; overflow:auto}
+
+.bbcode_yellow_back{background:#F0F0F0}
+
+.bbcode_code{border-left:#338 3px solid;width:95%; margin:5px 0 3px 0; font-size:12px}
+.bbcode_code_head{border-bottom:#CCC 1px solid; padding:2px 2px 2px 5px}
+.bbcode_code_body{padding:5px; overflow:scroll;}
+
+.bbcode_columns{border:#999 1px solid;border-collapse:collapse; width:100%}
+.bbcode_auth{background:url(images/bbeditor/authuser.gif);background-repeat:no-repeat;}
+
+.navPanel{line-height: 200%;}
+.fbhide{display:none;}
+.fbhidecontainer{border:1px dashed; padding:5px}
+.ui-button-text{font-family:"Microsoft JhengHei","Microsoft YaHei",Tahoma;}
+select,input{background-color: transparent;}
+
+body {
+
+	font-size: 13px;
+/*	font-family: Tahoma, Arial, Helvetica, Sans-Serif;*/
+	font-family:"Microsoft JhengHei","Microsoft YaHei",Tahoma;
+	line-height: 150%;
+	margin: 0 auto 30px;
+	padding: 0px;
+	/*background:#f0f0f0;*/
+}
+table
+{
+border-collapse:collapse;
+}
+fieldset{border:solid 1px; padding:5px}
+/* text */
+
+p {
+	line-height: 150%;
+	padding: 0px;
+}
+
+td, th {
+	font-size: 105%;
+	line-height:150%;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+.nols{list-style: none; margin-left:-20px; overflow-x:hidden}
+li {
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	/*margin-left: 2em;*/
+}
+
+
+/* links */
+a {
+	cursor:pointer;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+.bold a{font-weight:bold;}
+.bold{font-weight:bold;}
+/* other */
+
+img {
+	border: none;
+	vertical-align: middle;
+}
+hr {
+	height: 1px;
+	border: 0;
+	border-top: 1px solid;
+}
+
+h3{
+	font-size: 200%;
+	font-weight: bold;
+	padding: 7px 0px 7px 0px;
+	margin: 10px 0px 10px 0px;
+	border-bottom: 1px solid;
+}
+h4 {
+	font-size: 125%;
+	font-weight: bold;
+	padding: 5px 5px 5px 0px;
+	margin: 10px 0px 5px 0px;
+}
+.contentText{
+	font-size:16px; line-height:180%; padding:8px; 
+	margin-top:5px; overflow-x:hidden;
+}
+
+
+.tablepadding{
+	padding:3px;
+}
+.tablepaddingtop{
+	padding-top:18px;
+}
+.indexBlock{
+	line-height: 1.5em;
+	margin: 5px 0px 5px 0px;
+}
+.indexContent{
+	padding-left: 10px;
+	margin-bottom:0px;
+}
+
+
+
+.bottomlink a{padding-right:3px; padding-left:3px}
+
+.lbdiv{
+white-space:nowrap; margin:2px; line-height:17px;
+height:52px; width:300px;float:left; overflow:hidden; padding:5px;
+}
+
+
+.boards{height:335px; overflow-y:scroll;}
+
+.tdvfnav{padding:5px;margin-bottom:5px;border-top:0}
+
+
+
+
+
+.titleprefix {margin-top:1px; margin-bottom:1px}
+.titleprefix a{padding:1px; margin-right:1px}
+
+.footer div{padding:5px 0 0 5px;}
+
+.authorinfo{float:left; width:125px; padding-left:5px;border-right:solid 1px; }
+
+.authorname{display:none;}
+
+.contentmodinfo{font-size:12px; border-left:3px solid; padding-left:5px; margin-top:10px}
+
+.buyspan{color:#F60; font-weight:bold; cursor:pointer;background:url(/images/coin.gif) no-repeat; background-color:#FFF; padding-left:15px;}
+
+.bg_simpleletter{background:url(/images/bg_simpleletter.png); line-height:22px;font-size:14px;}
+
+.reply{margin-bottom:10px; border-left:0;border-right:0; padding:15px; overflow:hidden}
+.threadtitlebar{padding:3px 5px 5px 5px; clear:both;}
+.threadtitlebar a{text-decoration:none}
+
+.authorbar {font-weight:100;}
+.authorbar a{font-weight:100;}
+.authorbar{padding:2px}
+.authorbar2 a .ui-button-text{padding-top:2px;padding-bottom:2px}
+
+
+
+.indexforumlistitem{white-space:nowrap; max-width:470px; overflow:hidden;}
+.ajaxbox{-webkit-box-shadow: #CCC 0px 0px 1em;-moz-box-shadow: #CCC 0px 0px 1em;position:absolute; padding:5px; display:none}
+
+
+.viewmain td{vertical-align:middle; padding:1px 3px; line-height:120%;
+/*border:1px #CCC solid*/
+}
+.viewmain{border-collapse:collapse;}
+.viewmain td a{color:#006}
+.viewmain td a:visited{color:#606}
+
+.time{font-size:12px;}
+.time a{font-size:12px;}
+
+
+.alt_back{background:#EEE}
+
+.articlelist a{text-decoration:none}
+.articlelist a:hover{text-decoration:underline}
+
+
+
+
+.indexblockborder{
+border:1px solid; margin-bottom:5px;
+}
+
+.indexforumblocks{
+border-bottom:1px solid #DDD;
+}
+
+
+
+.insidebutton{left: 0.2em; margin: -8px 5px 0 0; position: absolute; top: 50%;}
+.withicon{padding-left:10px;}
+
+.icontext{font: italic 20px Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;}
+
+.posttag {font-weight:bold; float:left; border:1px solid #CCC; padding:4px;margin:0 5px;text-decoration:none}
+.posttag:hover{background:#EEE;text-decoration:none}
+
+
+.ext_link_selections button{
+display:block;width:150px; height:30px;margin:2px;
+}

@@ -1,0 +1,1 @@
+Table 'zf_contenttype' is marked as crashed and should be repaired	SELECT id, name FROM zf_contenttype
