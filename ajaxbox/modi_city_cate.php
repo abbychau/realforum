@@ -31,7 +31,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	header(sprintf("Location: %s", $updateGoTo));
 }
 
-$typeid = isset($_GET['typeid'])?safe($_GET['typeid']):"-1";
+$typeid = isset($_GET['typeid'])?intval($_GET['typeid']):"-1";
 
 $cates = dbAr("SELECT * FROM zf_cate ORDER BY id");
 $typeInfo = dbRow("SELECT * FROM zf_contenttype WHERE id = $typeid");

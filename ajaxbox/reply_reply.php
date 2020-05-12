@@ -10,9 +10,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
-	$postTargetID = safe($_POST['target']);
-	$postID = safe($_POST['id']);
-	$postTID =  safe($_POST['tid']);
+	$postTargetID = intval($_POST['target']);
+	$postID = intval($_POST['id']);
+	$postTID =  intval($_POST['tid']);
 	$says = safe($_POST['says']);
 	$pmContent = "<b>{$gUsername}</b>給你留言”{$says}”! TID:{$postTID}";
 	$replyInfo = dbRow("SELECT fid, comment FROM zf_reply WHERE id = {$postID}");

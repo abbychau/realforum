@@ -3,8 +3,8 @@
 	require_once('../Connections/zkizblog.php'); 
 	require_once('../include/common.inc.php');
 	
-	$tid = safe($_GET['tid']);
-	if($tid==""){$tid = safe($_POST['tid']);}
+	$tid = intval($_GET['tid']);
+	if($tid==""){$tid = intval($_POST['tid']);}
 	
 	//authorization
 	$fid=dbRs("SELECT type FROM zf_contentpages WHERE id = {$tid}");
@@ -23,9 +23,9 @@
 	
 	if ((isset($_POST["confirm"])) && ($_POST["confirm"] == "true")) {
 		
-		$tid = safe($_POST['tid']);
-		$tofid = safe($_POST['tofid']);
-		$sctofid = safe($_POST['sctofid']);
+		$tid = intval($_POST['tid']);
+		$tofid = intval($_POST['tofid']);
+		$sctofid = intval($_POST['sctofid']);
 		$ausername = dbRs("SELECT authorid FROM zf_contentpages WHERE id = {$tid}");
 		
 		$title = dbRs("SELECT title FROM zf_contentpages WHERE id=$tid");

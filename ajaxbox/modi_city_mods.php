@@ -3,8 +3,8 @@
 	require_once('../Connections/zkizblog.php');
 require_once('../include/common.inc.php');
 
-$typeid = safe($_GET['typeid']);
-if($typeid==""){$typeid = safe($_POST['tid']);}
+$typeid = intval($_GET['typeid']);
+if($typeid==""){$typeid = intval($_POST['tid']);}
 
 //authorize
 if(modRank($typeid)!=1 && $gUserGroup <= 7){die("Access Denied");}
@@ -19,7 +19,7 @@ if ($_GET['del']!="") {
 	header(sprintf("Location: %s", prevURL()));
 }
 if ($_POST['zid']!="") {
-	$zid = safe($_POST['zid']);
+	$zid = intval($_POST['zid']);
 	dbQuery("INSERT INTO `zf_admin` (`fid` ,`ownerid` ,`rank`)VALUES ('$typeid', '$zid',  '2')");
 	
 	cacheSet("RF_FORUM_ADMIN_{$typeid}",dbAr("SELECT ownerid, username, rank FROM `zf_admin` a, zf_user b WHERE a.ownerid = b.id AND fid = {$typeid}"));

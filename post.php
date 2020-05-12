@@ -132,7 +132,7 @@
 				
 				}
 			}else{
-				$tid = safe($_POST['tid']);
+				$tid = intval($_POST['tid']);
 			}
 			
 			//defense

@@ -5,7 +5,7 @@
 	
 	switch($_GET['action']){
 		case 'fid':
-		$fid = safe($_GET['fid']);
+		$fid = intval($_GET['fid']);
 		$threads = dbAr("SELECT * FROM zf_contentpages WHERE type = $fid ORDER BY id ASC LIMIT 0,50");
 		
 		$title = dbRs("SELECT name FROM zf_contenttype WHERE id = $fid");
@@ -16,7 +16,7 @@
 		break;
 		
 		case 'tid':
-		$tid = safe($_GET['tid']);
+		$tid = intval($_GET['tid']);
 		$replies = dbAr("SELECT * FROM zf_reply WHERE fellowid = $tid ORDER BY id ASC LIMIT 50");
 		$title = dbRs("SELECT title FROM zf_contentpages WHERE id = $tid");
 		$tmpIntro = mb_substr(str_replace(array("\n","\r"),"",$replies[0]['content']),0,100,'utf8');

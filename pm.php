@@ -16,7 +16,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 		screenMessage("金錢不足", "你的金錢不夠，每封PM 要消費1金錢");
 	}
 	if(stristr($_POST['to_id'],",")){
-		$zids = explode(",",safe($_POST['to_id']));
+		$zids = explode(",",intval($_POST['to_id']));
 		
 		$amount = sizeof($zids) * $pay_per_pm;
 		useMoney($amount,$gId);
@@ -29,7 +29,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 		}
 		
 	}else{
-		$rid = safe($_POST['to_id']);
+		$rid = intval($_POST['to_id']);
 		useMoney($pay_per_pm,$gId);
 		dbQuery("INSERT into zf_pm SET from_id = $gId, to_id = $rid, title = '$title' ,message = '$message'");
 	}

@@ -3,7 +3,7 @@
 	require_once('../Connections/zkizblog.php'); 
 	require_once('../include/common.inc.php');
 	
-	$fid = safe($_REQUEST['fid']);
+	$fid = intval($_REQUEST['fid']);
 	
 	//authorize
 	if(modRank($fid)==0 && $gUserGroup <= 8){die("Access Denied");}

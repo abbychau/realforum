@@ -61,9 +61,8 @@
 	}
 	//加tag
 	if($_GET['type']=="tags"){
-		$tag = safe($_GET['tag']);
-		$tid = safe($_GET['tid']);
-		updateThreadTags($tag,$tid);
+		$tid = intval($_GET['tid']);
+		updateThreadTags($_GET['tag'],$tid);
 		exit;
 	}
 	
@@ -82,8 +81,8 @@
 	
 	//摘錄
 	if($_GET['type']=="quote"){
-		$quote = safe(trim($_GET['quote']));
-		$tid = safe($_GET['tid']);
+		$quote = trim($_GET['quote']);
+		$tid = intval($_GET['tid']);
 		$last_quote = dbRs("SELECT (SELECT DATE_ADD(`timestamp`, INTERVAL 3 MINUTE) FROM zm_quote WHERE zid = $gId ORDER BY id DESC LIMIT 1) < CURRENT_TIMESTAMP");
 		
 		
@@ -106,7 +105,8 @@
 		}
 		
 		if($error == ""){
-			dbQuery("INSERT INTO zm_quote VALUES(NULL, $gId, '{$quote}', '{$g_domain}/thread.php?tid={$tid}',CURRENT_TIMESTAMP)");
+			dbQuery("INSERT INTO zm_quote VALUES(NULL, $gId, ?, ?,CURRENT_TIMESTAMP)"
+			,[$quote,"{$g_domain}/thread.php?tid={$tid}"]);
 			die("1");
 		}else{
 			die($error);
@@ -133,7 +133,7 @@
 	
 	//自動取tag(comma delimited)
 	if($_GET['type']=="extract_tags"){
-		$tags = extractTagsFromString(safe($_GET['str']));
+		$tags = extractTagsFromString(trim($_GET['str']));
 		if(is_array($tags)){
 		echo implode(",",$tags);
 		}else{
@@ -142,20 +142,14 @@
 	}
 	if ((isset($_POST["type"])) && ($_POST["type"] == "add_bookmark")) {
 		if (!$isLog){die("要使用收藏功能請先登入");}
-		$insertSQL = sprintf("INSERT INTO zf_bookmark (title, url, zid) VALUES (%s, %s, %s)",
-		GetSQLValueString($_POST['name'], "text"),
-		GetSQLValueString($_POST['url'], "text"),
-		GetSQLValueString($gId, "int"),
-		GetSQLValueString(($_POST['name']==$gUsername?'1':'0'), "int"));
+		dbQuery("INSERT INTO zf_bookmark (title, url, zid) VALUES (?, ?, ?)",
+		[$_POST['name'],$_POST['url'],$gId,]);
 		
-		dbQuery($insertSQL);
 		echo "1";
 		exit;
 	}
 	if ((isset($_POST["type"])) && ($_POST["type"] == "del_bookmark")) {
-		$insertSQL = sprintf("delete from zf_bookmark where id = %s",
-		GetSQLValueString($_POST['id'], "int"));
-		dbQuery($insertSQL);
+		dbQuery("delete from zf_bookmark where id = ?",[intval($_POST['id'])]);
 		echo "1";
 		exit;
 	}

@@ -3,7 +3,7 @@
 	include_once('include/common.inc.php');
 	require_once('include/nbbc.php');
 	
-	$fidq = $_GET['fid']==""?"":"AND type IN (".safe($_GET['fid']).")";
+	$fidq = $_GET['fid']==""?"":"AND type IN (".intval($_GET['fid']).")";
 	
 	$conlist = dbAr("SELECT * FROM zf_contenttype b order by datetime DESC");
 	

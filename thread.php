@@ -40,7 +40,7 @@ if ($_GET['wikiterm'] != "") {
 }
 
 if ($_GET['floorid']) {
-    $floorid = safe($_GET['floorid']);
+    $floorid = intval($_GET['floorid']);
     $numOfAbove = dbRs("SELECT count(*) FROM zf_reply WHERE fellowid = $gTid AND id <= $floorid");
     $tmpPage = round($numOfAbove / $maxRows_getReply);
     header("location: thread.php?tid=$gTid&page=$tmpPage#$numOfAbove");

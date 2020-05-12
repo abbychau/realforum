@@ -49,7 +49,7 @@
 		$result = trim($result,",");
 		$replyArr= explode(",",$result);
 		
-		$oldTid = safe($_POST['tid']);
+		$oldTid = intval($_POST['tid']);
 		$targetTid = intval($_POST['targetTid']);
 		
 		if($targetTid){ 
@@ -58,7 +58,7 @@
 			$title = safe($_POST['title']);
 			$subtitle= safe($_POST['subtitle']);
 			$lastid = end($replyArr);
-			$fid = safe($_POST['fid']);
+			$fid = intval($_POST['fid']);
 			$special = 0;
 			$newThreadID = dbQuery("INSERT INTO zf_contentpages (title,subtitle, type, lastid,authorid,special,create_timestamp) VALUES ('{$title}','{$subtitle}',{$fid},{$lastid},{$gId},{$special},CURRENT_TIMESTAMP)"); 
 		}

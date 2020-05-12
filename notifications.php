@@ -6,8 +6,8 @@
 	
 	
 	if ($_GET["type"] == "clickthrough"){
-		$getID = safe(base64_decode($_GET['id']));
-		dbQuery("UPDATE zm_notification SET `read` = 1 WHERE link = '$getID' AND zid='$gUsername'");
+		dbQuery("UPDATE zm_notification SET `read` = 1 WHERE link = ? AND zid=?",
+		[base64_decode($_GET['id']),$gUsername]);
 		
 		header("location:$getID");
 		exit;

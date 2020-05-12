@@ -14,8 +14,8 @@ function questQuery($sql,$isRs=0){
 	}
 }
 
-$action = safe($_GET['action']);
-$pId = safe($_GET['id']);
+$action = trim($_GET['action']);
+$pId = intval($_GET['id']);
 
 if($isLog==false){die("Please Login First!");}
 $htmltitle = "任務"; 

@@ -3,8 +3,8 @@
 	require_once('../Connections/zkizblog.php');
 require_once('../include/common.inc.php');
 
-$typeid = safe($_GET['typeid']);
-if($typeid==""){$typeid = safe($_POST['typeid']);}
+$typeid = intval($_GET['typeid']);
+if($typeid==""){$typeid = intval($_POST['typeid']);}
 
 //authorize
 //modRank($typeid)!=1 && 

@@ -12,8 +12,8 @@
 	if(modRank($fid)==0 && $gUserGroup <= 7){die("Access Denied Required=7 Your Rank=".modRank($fid));}
 	
 	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
-		$pid = safe($_POST['id']);
-		$tid = safe($_POST['tid']);
+		$pid = intval($_POST['id']);
+		$tid = intval($_POST['tid']);
 		$reason = safe($_POST['reason']);
 		
 		$reply_content = dbRow("SELECT * FROM zf_reply WHERE id = $pid");
@@ -30,8 +30,8 @@
 	}
 	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form3")) {
 		exit;
-		$tid = safe($_POST['tid']);
-		$pid = safe($_POST['id']);
+		$tid = intval($_POST['tid']);
+		$pid = intval($_POST['id']);
 		$cate = safe($_POST['cate']);
 		$title = safe($_POST['title']);
 		$abstract = safe($_POST['abstract']);

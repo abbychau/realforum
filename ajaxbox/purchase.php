@@ -4,7 +4,7 @@ require_once('../Connections/zkizblog.php');
 require_once('../include/common.inc.php');
 $rate = 0.8;
 
-$grid = $_GET['id']==""?safe($_POST['id']):safe($_GET['id']);
+$grid = $_GET['id']==""?intval($_POST['id']):intval($_GET['id']);
 
 
 if(!$isLog){die("請先登入");}

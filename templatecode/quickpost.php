@@ -123,7 +123,7 @@
 			<div class='viewforum_highlight'>
 			<ul class="nav nav-pills">
 				
-				<?if(sizeof($highlights)>1){?>
+				<?if(is_array($highlights) && sizeof($highlights)>1){?>
 					<?foreach($highlights as $highlight){?><li><a class='addtitle' onclick="addtitle('[<?=$highlight;?>]');"><?=$highlight;?></a></li><?}?>
 					<?}else{?>
 					<?foreach($default_types as $highlight){?><li><a class='addtitle' onclick="addtitle('[<?=$highlight;?>]');"><?=$highlight;?></a></li><?}?>

@@ -46,9 +46,9 @@
 	
 	if (isset($_POST["from_ajax"])) {
 	
-		$postID = safe($_POST['id']);
+		$postID = intval($_POST['id']);
 		$postTargetID = safe($_POST['target']);
-		$postTID =  safe($_POST['tid']);
+		$postTID =  intval($_POST['tid']);
 		$says = $_POST['says']==""?"":" (".safe($_POST['says']).")";
 		
 		$targetInfo = dbRow("SELECT * FROM zf_user WHERE id = {$postTargetID}");
