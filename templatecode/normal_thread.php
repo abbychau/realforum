@@ -556,7 +556,7 @@ if($row_getReply['authorid'] == 14||$row_getReply['authorid'] == 830){?>
   </div>
                                             <?if($isLog){?>
                                                 <a class="btn btn-success" rel="shadowbox" href="http://realblog.zkiz.com/compose.php?rftid=<?=$gTid;?>" style='margin-top: 0.4em;
-											padding: 0.6em 0.8em;'>RB</a>
+											padding: 0em 0.8em;'>RealBlog</a>
                                             <?}?>
                                             <div class='well clear' style='font-size:10pt;max-width:500px;margin-top:1em'>
                                                 <?if($authorRecentTopics){?>

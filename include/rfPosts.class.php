@@ -31,8 +31,8 @@
 			);
 			
 			dbQuery(
-				"INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, :content, '$picurl', NOW(), '$ip', '$zid', 1, '$price')"
-				,['content'=>$content]
+				"INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, :content, :picurl, NOW(), '$ip', '$zid', 1, '$price')"
+				,['content'=>$content,'picurl'=>$picurl]
 			);
 						
 			if($isLog){
@@ -68,7 +68,10 @@
 				$beingRepliedScore1 = $RFG['beingRepliedScore1'];
 			}
 			
-			dbQuery("INSERT INTO zf_reply (fid, fellowid,parent_id, content, picurl, `datetime`, ip, authorid, isfirstpost,price) VALUES ($fid, $tid, $pid, '$content', '$picurl', NOW(), '$ip', '$zid', 0, '$price')");
+			dbQuery("INSERT INTO zf_reply (fid, fellowid,parent_id, content, picurl, `datetime`, ip, authorid, isfirstpost,price) 
+			VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?)",
+			[$fid, $tid, $pid, $content, $picurl,$ip,$zid, 0, $price]	
+		);
 			dbQuery("UPDATE zf_contentpages SET commentnum = commentnum + 1, lastid=$zid,lastusername=:username, lastdatetime=NOW() where id = '$tid'",['username'=>$username]);
 			
 			if($isLog){

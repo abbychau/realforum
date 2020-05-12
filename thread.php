@@ -29,8 +29,8 @@ if ($gTid == "") {
 
 
 if ($_GET['wikiterm'] != "") {
-    $wikiterm = safe($_GET['wikiterm']);
-    $gTid = dbRs("SELECT id FROM zf_contentpages WHERE title = '$wikiterm' AND special = 4");
+    $wikiterm = htmlentities($_GET['wikiterm']);
+    $gTid = dbRs("SELECT id FROM zf_contentpages WHERE title = ? AND special = 4",[$_GET['wikiterm']]);
 
     if ($gTid == false || $gTid == '') {
         header("location: post.php?fid=196&type=post&special=wiki&title=$wikiterm");

@@ -34,8 +34,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
 		"content"	=>str_replace('\"',"",$_POST['says']), 
 		"timestamp"	=>time()
 	);
-	$comment = safe(serialize($comments));
-	dbQuery("UPDATE zf_reply SET comment = '$comment' WHERE id={$postID}");
+	$comment = serialize($comments);
+	dbQuery("UPDATE zf_reply SET comment = ? WHERE id= ?",[$comment,$postID]);
 	//dbQuery("UPDATE zf_user SET score1 = score1 - $amount WHERE id={$gId}");
 		
 	sendNotification(

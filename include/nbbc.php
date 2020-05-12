@@ -935,7 +935,6 @@ return $div1.$content.$div2;
 function DoRealblog($bbcode, $action, $name, $default, $params, $content) {
 if ($action == BBCODE_CHECK) return true;
 $content = trim($bbcode->UnHTMLEncode(strip_tags($content)));
-$tmp = safe($content);
 $params=explode("/",$content);
 $id = intval($params[4]);
 

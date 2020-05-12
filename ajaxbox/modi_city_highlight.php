@@ -25,13 +25,13 @@ $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {$editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);}
 
 if ($_POST['tags']!="") {
-	$tag = trim(safe($_POST['tags']));
+	$tag = trim($_POST['tags']);
 	$tag = str_replace('\r','\n',$tag);
 	$tag = str_replace('\n\n','\n',$tag);
 	$tag = trim($tag);
 	$tags = explode('\n',$tag);
 	$tmptag = serialize($tags);
-	dbQuery("update zf_contenttype set highlight = '$tmptag' WHERE id = $typeid");
+	dbQuery("update zf_contenttype set highlight = ? WHERE id = $typeid",[$tmptag]);
 	header(sprintf("Location: %s", prevURL()));
 }
 

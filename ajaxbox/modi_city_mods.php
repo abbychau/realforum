@@ -13,7 +13,7 @@ $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {$editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);}
 
 if ($_GET['del']!="") {
-	$uid = safe($_GET['del']);
+	$uid = intval($_GET['del']);
 	dbQuery("DELETE FROM zf_admin WHERE ownerid = $uid AND fid = $typeid");
 	cacheSet("RF_FORUM_ADMIN_{$typeid}",dbAr("SELECT ownerid, username, rank FROM `zf_admin` a, zf_user b WHERE a.ownerid = b.id AND fid = {$typeid}"));
 	header(sprintf("Location: %s", prevURL()));

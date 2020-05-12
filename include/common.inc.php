@@ -24,6 +24,7 @@
 		function cacheGet($a="",$b=""){}
 		function sendNotification($a="",$b=""){}
 		function sendNotifications($a="",$b=""){}
+		function curURL(){}
 	}
 	function convertMoney($amount) {
 		

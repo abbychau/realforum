@@ -5,10 +5,8 @@ if($_POST['username']=="" || $_POST['password']==""){
 	screenMessage("密碼或用戶名錯誤!","請重新登入<br /> <a href='http://members.zkiz.com/forgotpw.php' target='_blank'>忘記密碼</a>");
 }
 
-$username = safe($_POST['username']);
-$password = safe($_POST['password']);
-
-if (loginGlobal($username,$password)) {
+$username = trim($_POST['username']);
+if (loginGlobal($username,$_POST['password'])) {
 	if($_POST['refer']!=""){header("location:".$_POST['refer']);exit;}
 	if($_SERVER['HTTP_REFERER']!=""){header("location:".$_SERVER['HTTP_REFERER']);exit;}
 	header("location:http://zkiz.com");exit;

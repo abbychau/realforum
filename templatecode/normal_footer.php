@@ -20,7 +20,7 @@
 </div><!--wrapper clear container-->
 
 <div class="row">
-<div class="well col-md-8" style="margin:1em 0 0 0;border-bottom:0;border-bottom-right-radius:0;border-bottom-left-radius:0">
+<div class="well col-md-9" style="margin:1em 0 0 0;border-bottom:0;border-bottom-right-radius:0;border-bottom-left-radius:0">
 
     <div class='row links'>
 
@@ -66,8 +66,8 @@
             <a href="/whatisrf.php">甚麼是RealForum</a>
             <br />
 
-            <a href="/keiji.php?to=<?=base64_encode(curUrl());?>" target="_parent" id='split_mode'>分欄模式</a> |
-            <a href="<?=curUrl();?>" target="_parent" id='normal_mode'>普通模式</a>
+            <a href="/keiji.php?to=<?=base64_encode(curURL());?>" target="_parent" id='split_mode'>分欄模式</a> |
+            <a href="<?=curURL();?>" target="_parent" id='normal_mode'>普通模式</a>
             <?if($isLog){?>
                 | <a href='/quest.php?action=accept&id=1'>每日禮包</a>
             <?}?>

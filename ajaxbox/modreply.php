@@ -14,18 +14,18 @@
 	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
 		$pid = intval($_POST['id']);
 		$tid = intval($_POST['tid']);
-		$reason = safe($_POST['reason']);
+		$reason = htmlentities($_POST['reason']);
 		
 		$reply_content = dbRow("SELECT * FROM zf_reply WHERE id = $pid");
 		$original = dbRow("SELECT id, username FROM zf_user WHERE id = {$reply_content['authorid']}");
 		
-		$content = safe($reply_content['content']);
+		$content = htmlentities($reply_content['content']);
 		//die("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");
 		$insertID=dbQuery("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");
 		
 		$new_content = '[member]'.$original['username'].'[/member]所發的貼子已被[member]'.$gUsername."[/member](管理組:$gUserGroup) 刪除了。(原因:$reason) 存檔ID:[archive]{$insertID}[/archive]";
 		
-		dbQuery("UPDATE zf_reply SET modrecord='', content = '{$new_content}', picurl = '', authorid = '-101' WHERE id=$pid");
+		dbQuery("UPDATE zf_reply SET modrecord='', content = ?, picurl = '', authorid = '-101' WHERE id=$pid",[$new_content]);
 		die("<strong>己成功刪除!</strong>");
 	}
 ?>

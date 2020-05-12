@@ -55,12 +55,14 @@
 		if($targetTid){ 
 			$newThreadID=$targetTid;
 		}else{
-			$title = safe($_POST['title']);
-			$subtitle= safe($_POST['subtitle']);
+			$title = trim($_POST['title']);
+			$subtitle= trim($_POST['subtitle']);
 			$lastid = end($replyArr);
 			$fid = intval($_POST['fid']);
 			$special = 0;
-			$newThreadID = dbQuery("INSERT INTO zf_contentpages (title,subtitle, type, lastid,authorid,special,create_timestamp) VALUES ('{$title}','{$subtitle}',{$fid},{$lastid},{$gId},{$special},CURRENT_TIMESTAMP)"); 
+			$newThreadID = dbQuery("INSERT INTO zf_contentpages (title,subtitle, type, lastid,authorid,special,create_timestamp) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)",
+			[$title,$subtitle,$fid,$lastid,$gId,$special]
+			); 
 		}
 		
 		dbQuery("UPDATE zf_reply SET fellowid = $newThreadID WHERE id IN ({$result})");

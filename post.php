@@ -47,6 +47,7 @@
 			if($result["success"] != true){screenMessage("驗證失敗","請重試","");}
 		}
 		//@人
+		$_POST['content'] = trim($_POST['content']);
 		preg_match_all('/\[@(.+?)\]/i',safe($_POST['content']." "), $tmpAtList);
 		if(!empty($tmpAtList[1])){
 			$arrAtList = array_slice(array_unique($tmpAtList[1]),0,$RFG['max_allow_at']);
@@ -56,11 +57,9 @@
 		
 		if($_POST["posttype"]=="post"){
 			
-			$title = safe($_POST['title']);
-			$subtitle = safe($_POST['subtitle']);
+			$title = htmlentities($_POST['title']);
 			
-			$picurl = (substr($_POST['picurl'],0,4) == "http")?safe($_POST['picurl']):"";
-			$content = safe($_POST['content']);
+			$picurl = (substr($_POST['picurl'],0,4) == "http")?trim($_POST['picurl']):"";
 			$price = intval($_POST['price']);
 			$special = $_POST['wiki']=='true'?'4':'0';
 			$special = $_POST['resource']=='true'?'5':'0';
@@ -74,7 +73,7 @@
 				$_POST['title'], 
 				$_POST['subtitle'], 
 				$fid, $_POST['content'], $picurl, $ip, $gId, 
-				$special, $price,$tags, ($_POST["also_subscribe"]==1));
+				$special, $price, $tags, ($_POST["also_subscribe"]==1));
 
 
 			if($lastTID < 0){
@@ -95,22 +94,6 @@
 					$plurk->add_plurk('en', 'shares', "{$g_domain}/thread.php?tid={$lastTID} ($title)");
 				}
 			}
-			/*
-			if($my['facebook']=="1"){
-			
-				$fb = getFacebook();
-				
-				if ($fb['me']) {
-					$arr_post = [
-					'name'=>$title,				'message'=> $title,
-					'description'=>$content,	'link' =>"{$g_domain}/thread.php?tid={$lastTID}"
-					];
-					if($picurl!=""){$arr_post['picture'] = $picurl;	}
-				
-					$statusUpdate = $fb['object']->api('/me/feed', 'POST', $arr_post);
-				}
-			}
-			*/
 			if($_GET['post_action']=='die'){die("<a href='thread.php?tid=$lastTID'>$title</a>");}
 			if($_GET['post_action']=='exit'){exit;}
 			setcookie("justpost","true",time()+10);
@@ -139,13 +122,13 @@
 			if($pageinfo['is_closed'] == '1'){exit;}
 
 			$picurl = (substr($_POST['picurl'],0,4) == "http")?safe($_POST['picurl']):"";
-			$content = safe($_POST['content']);
+			
 			$price = intval($_POST['price']);
 			
 			$pid  = intval($_POST['pid']);
 			$pid = $pid<1?0:$pid;
 			
-			rfPosts::replyThread($fid, $tid, $pid, $content, $picurl, $ip, $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
+			rfPosts::replyThread($fid, $tid, $pid, $_POST['content'], $picurl, $ip, $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
 			
 
 			if(!empty($arrAtList)){
