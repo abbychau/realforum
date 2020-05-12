@@ -28,7 +28,7 @@
 		$sctofid = intval($_POST['sctofid']);
 		$ausername = dbRs("SELECT authorid FROM zf_contentpages WHERE id = {$tid}");
 		
-		$title = dbRs("SELECT title FROM zf_contentpages WHERE id=$tid");
+		$title = htmlentities(dbRs("SELECT title FROM zf_contentpages WHERE id=$tid"));
 		switch($_POST['adminact']){
 			case 1;
 			dbQuery("UPDATE zf_contentpages SET isshow = 0 WHERE id=$tid");
@@ -80,7 +80,7 @@
 		datetime=(SELECT lastdatetime FROM zf_contentpages b WHERE a.id = b.type ORDER BY lastdatetime DESC LIMIT 1), 
 		lastaid=(SELECT lastid FROM zf_contentpages b WHERE a.id = b.type ORDER BY lastdatetime DESC LIMIT 1)");
 		*/
-		$pmMSG = safe("<b>{$gUsername}</b>剛把你的主題:<b>{$title}</b>{$stract}了");
+		$pmMSG = "<b>{$gUsername}</b>剛把你的主題:<b>{$title}</b>{$stract}了";
 		
 		sendNotification($ausername,$pmMSG,"{$g_domain}/thread.php?tid=$tid");
 		

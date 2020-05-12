@@ -5,7 +5,6 @@
 	//relation_type 1:ban 2:follow 3:disable notification 4:enable notification
 
 	//settings
-	$datetime = safe(gmdate("Y-m-d H:i:s", time()+28800));
 	$title = "";
 	$tmpAtlist=array();
 	$fid = intval($_REQUEST['fid']);
@@ -74,7 +73,7 @@
 			$lastTID = rfPosts::newThread(
 				$_POST['title'], 
 				$_POST['subtitle'], 
-				$fid, $_POST['content'], $picurl, $datetime, $ip, $gId, 
+				$fid, $_POST['content'], $picurl, $ip, $gId, 
 				$special, $price,$tags, ($_POST["also_subscribe"]==1));
 
 
@@ -146,7 +145,7 @@
 			$pid  = intval($_POST['pid']);
 			$pid = $pid<1?0:$pid;
 			
-			rfPosts::replyThread($fid, $tid, $pid, $content, $picurl, $datetime, $ip, $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
+			rfPosts::replyThread($fid, $tid, $pid, $content, $picurl, $ip, $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
 			
 
 			if(!empty($arrAtList)){

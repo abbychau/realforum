@@ -15,12 +15,10 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-	$updateSQL = sprintf("UPDATE zf_contenttype SET cate=%s WHERE id=%s",
-					GetSQLValueString($_POST['cate'], "text"),
-					GetSQLValueString($_POST['tid'], "int"));
-
-	mysql_select_db($database_zkizblog, $zkizblog);
-	$Result1 = mysql_query($updateSQL, $zkizblog) or die(mysql_error());
+	dbQuery("UPDATE zf_contenttype SET cate=? WHERE id=?",[
+		$_POST['cate'],
+		$_POST['tid']
+	]);
 
 	$updateGoTo = "/viewforum.php?fid=".$_GET['typeid'];
 	if (isset($_SERVER['QUERY_STRING'])) {

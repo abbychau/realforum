@@ -11,8 +11,8 @@ if(!$isLog){screenMessage("錯誤","請先登入");}
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
-	dbQuery("INSERT INTO zf_contenttype (name) VALUES (?)",[$_POST['name']]);
-	$lastid = mysql_insert_id();
+	$lastid = dbQuery("INSERT INTO zf_contenttype (name) VALUES (?)",[$_POST['name']]);
+	
 	dbQuery("UPDATE zf_user SET score1 = score1 - 50 where id = {$gId}");
 	dbQuery("INSERT INTO `zf_admin` (`fid` ,`ownerid`)VALUES ('{$lastid}', '{$gId}')");
 

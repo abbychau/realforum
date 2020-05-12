@@ -42,7 +42,7 @@ Global $imgfile;
 $uploaddir = "$dir/";
 $uploadfile = $uploaddir . $_FILES['imgfile']['name'];
 
-if ($_FILES['imgfile']['type'] == 'image/pjpeg' 戌 $_FILES['imgfile']['type'] == 'image/jpeg') {
+if ($_FILES['imgfile']['type'] == 'image/pjpeg' || $_FILES['imgfile']['type'] == 'image/jpeg') {
 $srcimg = graphics_load_jpeg($_FILES['imgfile']['tmp_name']);
 } else { return 0;}
 

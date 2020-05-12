@@ -5,8 +5,8 @@
 	$bbcode = new bbcode();
 	
 	$gfid = intval($_GET['fid']);
-	$gtype = safe($_GET['type']);
-	$gorder = safe($_GET['order']);
+	$gtype = trim($_GET['type']);
+	
 	$pfid = ($_POST['fid'] == 0) ? 1 : intval($_POST['fid']);
 	$currentPage = $_SERVER["PHP_SELF"];
 	$gIsAtlease1 = isset($_GET['atleast1']);
@@ -87,7 +87,7 @@
 		
 		break;
 	}
-	switch ($gorder){
+	switch ($_GET['order']){
 		case 'commentnum':
 		$ordersql = 'commentnum desc,';
 		break;

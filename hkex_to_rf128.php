@@ -5,14 +5,12 @@
 		die("Please Login");
 	}
 	if($_POST['picurl']){
-		$datetime = safe(gmdate("Y-m-d H:i:s", time()+28800));
 		$ip = getIP();
 		$tid = dbRs("SELECT tid FROM zf_pages_tracing WHERE tag = {$_POST['code']}");
 		if(!$tid){
 			echo "tid not exist in tracing table";
 		}else{
-			rfPosts::replyThread(128, $tid, 0, $_POST['comment'], $_POST['picurl'], $datetime, $ip, $gId,$gUsername, 0, 14, true);
-			//       replyThread($fid, $tid, $pid, $content, $picurl, $datetime, $ip, $zid,$username, $price, $threadAuthorId,$also_subscribe){
+			rfPosts::replyThread(128, $tid, 0, $_POST['comment'], $_POST['picurl'], $ip, $gId,$gUsername, 0, 14, true);
 			$donePosting = true;
 		}
 	}

@@ -9,8 +9,8 @@ $cost = 10;
 
 if(isset($_POST['city_from']) && isset($_POST['city_to']) && $_POST['city_from'] != $_POST['city_to']){
 	
-	$city_to = safe($_POST['city_to']);
-	$city_from = safe($_POST['city_from']);
+	$city_to = intval($_POST['city_to']);
+	$city_from = intval($_POST['city_from']);
 
 	$city_to_owner = dbRs("SELECT ownerid FROM zf_admin WHERE rank = 1 AND fid = $city_to");
 	$city_from_owner = dbRs("SELECT ownerid FROM zf_admin WHERE rank = 1 AND fid = $city_from");
@@ -38,7 +38,7 @@ include_once("templatecode/header.php");
 <h1>合併城市</h1>
 
 <div class='panel panel-default' style='padding:2em'>
-<form id="form1" name="form1" method="POST" onsubmit="return confirm('合併後將不能還原。你確定嗎?'); return false; }">
+<form id="form1" name="form1" method="POST" onsubmit="return confirm('合併後將不能還原。你確定嗎?'); return false;">
 由副城:
 <select name='city_from'>
 	<?php foreach ($cities as $row_getCities){ ?>

@@ -9,17 +9,15 @@
 
 	$strGrabSQL = "SELECT * FROM zf_attention WHERE username = '$gUsername' LIMIT 100";
 	if($_GET['action']=='delete'){
-		$code= safe($_GET['code']);
-		dbQuery("DELETE FROM `zf_attention` WHERE username = '$gUsername' AND code = '$code'");
+		dbQuery("DELETE FROM `zf_attention` WHERE username = '$gUsername' AND code = ?",[$_GET['code']]);
 		$redis->delete($strGrabSQL);
 	}
 	
 	if($_POST['code']!=''){
-		$code= safe($_POST['code']);
 		if(!is_numeric($code)){
 			screenMessage("Error", "Wrong code number. (we only need for example : 5).");
 		}
-		dbQuery("INSERT IGNORE INTO `zf_attention` (`username`,`code`)VALUES ('$gUsername','$code')");
+		dbQuery("INSERT IGNORE INTO `zf_attention` (`username`,`code`)VALUES ('$gUsername',?)",[$_POST['code']]);
 		$redis->delete($strGrabSQL);
 	}
 	

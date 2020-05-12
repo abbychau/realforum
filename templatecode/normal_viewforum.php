@@ -4,7 +4,7 @@
 <style>
     #modlist{width:200px;float:left;font-size:0.8em}
     #modDiagContent{width:650px; border:1px #BBB solid; padding:4px; display:none;margin:0 4px 0 4px;font-size:0.8em}
-    .viewforum_title_container{}
+    
     .viewforum_title_container .statbox{padding:8px;float:right}
     .statbox_data{font-size:20px;font-weight:bold}
     .viewforum_main_icon{float:left;padding:0 10px 0 0;width:100px}
@@ -28,7 +28,6 @@
     .main_table .th_sorting{padding:.5em; background:#EEE;font-size:10pt}
 
 
-    .vf_leftlayout{}
     /**/
     .vf_rightlayout{
         position: fixed;bottom:0; left:0;

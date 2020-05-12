@@ -1,5 +1,30 @@
 <?php 
-	
+	if (!function_exists('dbRs')) {
+		die("Please Check Real Lib inclusion.");
+		function dbRs($a="",$b="",$c="") {}
+		function dbRow($a="",$b="",$c="") {}
+		function dbAr($a="",$b="",$c="") {}
+		function dbQuery($a="",$b="",$c="") {}
+		function insertTag($a="",$b="",$c="") {}
+		function insertTagAndNotify($a="",$b="",$c="") {}
+		function screenMessage($a="",$b="",$c="") {}
+		function safe($a="",$b="",$c="") {}
+		function GetSQLValueString($a="",$b="",$c="") {}
+		function generatePagin($pageNo, $base, $queryVariableName, $totalPages){}
+		function cacheVoid($key){}
+		function cacheGet($key){}
+		function timeago($referencedate=0, $timepointer='', $measureby=''){}
+		function prevURL(){}
+		function getIP(){}
+		function decrypt($a=""){}
+		function useMoney($a="",$b=""){}
+		function addMoney($a="",$b=""){}
+		function cacheSet($a="",$b=""){}
+		function cacheValid($a="",$b=""){}
+		function cacheGet($a="",$b=""){}
+		function sendNotification($a="",$b=""){}
+		function sendNotifications($a="",$b=""){}
+	}
 	function convertMoney($amount) {
 		
 		$len = strlen($amount);

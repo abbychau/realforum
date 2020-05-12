@@ -2,7 +2,7 @@
 	
 	class rfPosts{
 		
-		public static function newThread($title, $subtitle, $fid, $content, $picurl, $datetime, $ip, $zid, $special=0, $price=0,$tags, $also_subscribe){
+		public static function newThread($title, $subtitle, $fid, $content, $picurl, $ip, $zid, $special=0, $price=0,$tags, $also_subscribe){
 			
 			global $my,$RFG,$isLog,$gUsername,$gId,$blackwords;
 			
@@ -31,7 +31,7 @@
 			);
 			
 			dbQuery(
-				"INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, :content, '$picurl', '$datetime', '$ip', '$zid', 1, '$price')"
+				"INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, :content, '$picurl', NOW(), '$ip', '$zid', 1, '$price')"
 				,['content'=>$content]
 			);
 						
@@ -57,7 +57,7 @@
 			return intval($c)>0;
 		}
 		
-		public static function replyThread($fid, $tid, $pid, $content, $picurl, $datetime, $ip, $zid,$username, $price, $threadAuthorId,$also_subscribe){
+		public static function replyThread($fid, $tid, $pid, $content, $picurl, $ip, $zid,$username, $price, $threadAuthorId,$also_subscribe){
 			global $my,$RFG,$isLog;
 			$score1AmountGet = mb_strlen($content,'utf8') > 15 ? $RFG['newReplyScore1High'] : $RFG['newReplyScore1Low'];
 			
@@ -68,8 +68,8 @@
 				$beingRepliedScore1 = $RFG['beingRepliedScore1'];
 			}
 			
-			dbQuery("INSERT INTO zf_reply (fid, fellowid,parent_id, content, picurl, `datetime`, ip, authorid, isfirstpost,price) VALUES ($fid, $tid, $pid, '$content', '$picurl', '$datetime', '$ip', '$zid', 0, '$price')");
-			dbQuery("UPDATE zf_contentpages SET commentnum = commentnum + 1, lastid=$zid,lastusername=:username, lastdatetime='$datetime' where id = '$tid'",['username'=>$username]);
+			dbQuery("INSERT INTO zf_reply (fid, fellowid,parent_id, content, picurl, `datetime`, ip, authorid, isfirstpost,price) VALUES ($fid, $tid, $pid, '$content', '$picurl', NOW(), '$ip', '$zid', 0, '$price')");
+			dbQuery("UPDATE zf_contentpages SET commentnum = commentnum + 1, lastid=$zid,lastusername=:username, lastdatetime=NOW() where id = '$tid'",['username'=>$username]);
 			
 			if($isLog){
 				dbQuery("UPDATE zf_user SET postnum = postnum + 1 , postnum_today=postnum_today+1, score1 = score1 + $score1AmountGet where `id` = $zid");

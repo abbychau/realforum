@@ -47,7 +47,7 @@
 	if (isset($_POST["from_ajax"])) {
 	
 		$postID = intval($_POST['id']);
-		$postTargetID = safe($_POST['target']);
+		$postTargetID = intval($_POST['target']);
 		$postTID =  intval($_POST['tid']);
 		$says = $_POST['says']==""?"":" (".safe($_POST['says']).")";
 		

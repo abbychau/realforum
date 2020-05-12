@@ -70,8 +70,11 @@
 		}else{
 			
 			if($_POST['action'] == 'buy' ){
-				$code=safe($_POST['code']);
-				$amount=safe($_POST['amount']);
+				if(!is_numeric($_POST['code'])){
+					screenMessage("股票代碼不正確");
+				}
+				$code=$_POST['code'];
+				$amount=intval($_POST['amount']);
 				$price = getPrice($code);
 				if($price == 0){
 					screenMessage("錯誤", "很抱歉, 不能取得正確的股價, 請重新再試");
@@ -80,7 +83,10 @@
 				$estimation = round($price * 1.002 * $amount,2);
 				
 				useMoney($estimation,$gId,'score3');
-				dbQuery("INSERT INTO `zf_stock_tran` (`id` ,`zid` ,`item` ,`action`,`amount`,`estimation`)VALUES (NULL ,  '$gId',  '$code',  'BUY', $amount, $estimation)");
+				dbQuery("INSERT INTO `zf_stock_tran` (`id` ,`zid` ,`item` ,`action`,`amount`,`estimation`)
+				VALUES (NULL ,  '$gId',  ?,  'BUY', ?, $estimation)"
+				,[$code,$amount]
+				);
 				
 				dbQuery("INSERT INTO `zf_stock_hold` (`zid` ,`item` ,`amount` ,`estimation`) VALUES ({$gId}, '$code',  '$amount',  '$estimation') ON DUPLICATE KEY UPDATE amount=amount+$amount , estimation = estimation + $estimation");
 				
@@ -89,8 +95,11 @@
 				dbQuery("DELETE FROM zf_stock_hold WHERE amount = 0");
 			}
 			if($_POST['action'] == 'sell'){
-				$code=safe($_POST['code']);
-				$amount=safe($_POST['amount']);
+				if(!is_numeric($_POST['code'])){
+					screenMessage("股票代碼不正確");
+				}
+				$code=$_POST['code'];
+				$amount=intval($_POST['amount']);
 				$price = getStockPrice($code);
 				
 				if($price == 0){
@@ -108,7 +117,7 @@
 				
 				dbQuery("INSERT INTO `zf_stock_tran` (`id` ,`zid` ,`item` ,`action`,`amount`,`estimation`)VALUES (NULL ,  '$gId',  '$code',  'SELL', $amount, $estimation)");
 				
-				dbQuery("UPDATE `zf_stock_hold` set amount=amount-$amount WHERE item = '$code' AND zid = '$gId'");
+				dbQuery("UPDATE `zf_stock_hold` set amount=amount-? WHERE item = ? AND zid = '$gId'",[$amount,$code]);
 				
 				$success_message = "你已成功以 TC ".round($price * 0.995,2)." 出售 $code $amount 股, 合共 TC $estimation 。";
 				

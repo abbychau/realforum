@@ -21,25 +21,12 @@
 		
 		$content = safe($reply_content['content']);
 		//die("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");
-		dbQuery("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");
+		$insertID=dbQuery("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");
 		
-		$new_content = '[member]'.$original['username'].'[/member]所發的貼子已被[member]'.$gUsername."[/member](管理組:$gUserGroup) 刪除了。(原因:$reason) 存檔ID:[archive]".mysql_insert_id()."[/archive]";
+		$new_content = '[member]'.$original['username'].'[/member]所發的貼子已被[member]'.$gUsername."[/member](管理組:$gUserGroup) 刪除了。(原因:$reason) 存檔ID:[archive]{$insertID}[/archive]";
 		
 		dbQuery("UPDATE zf_reply SET modrecord='', content = '{$new_content}', picurl = '', authorid = '-101' WHERE id=$pid");
 		die("<strong>己成功刪除!</strong>");
-	}
-	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form3")) {
-		exit;
-		$tid = intval($_POST['tid']);
-		$pid = intval($_POST['id']);
-		$cate = safe($_POST['cate']);
-		$title = safe($_POST['title']);
-		$abstract = safe($_POST['abstract']);
-		$paramlink = safe(base64_decode($_POST['paramlink']));
-		$tags = safe($_POST['tags']);
-		//TO-DO: 變為主題
-		dbQuery("INSERT INTO `zm_abstract` (`id`,`type`, `tid`, `title`,`paramlink`,`cate`,`pusherid`) VALUES (NULL,'0', '$pid', '$title', '$paramlink','$cate','$gId')");
-		header("Location:/thread.php?tid=".$_POST['tid']); 
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
