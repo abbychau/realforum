@@ -10,8 +10,8 @@ if($isLog != true){
 }
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 
-	$message = safe(trim($_POST['content']));//message
-	$title = safe($_POST['title']); //title
+	$message = htmlentities(trim($_POST['content']));
+	$title = htmlentities(trim($_POST['title']));
 	if($my['score1']<=0){
 		screenMessage("金錢不足", "你的金錢不夠，每封PM 要消費1金錢");
 	}
@@ -22,9 +22,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form2")) {
 		useMoney($amount,$gId);
 		
 		foreach($zids as $rid){
-			$rid = trim($rid);
+			$rid = intval($rid);
 			if($rid != ""){
-				dbQuery("INSERT into zf_pm SET from_id = $gId, to_id = $rid, title = '$title' ,message = '$message'");
+				dbQuery("INSERT into zf_pm SET from_id = $gId, to_id = $rid, title = ? ,message = ?",[$title,$message]);
 			}
 		}
 		

@@ -48,7 +48,7 @@
 		}
 		//@人
 		$_POST['content'] = trim($_POST['content']);
-		preg_match_all('/\[@(.+?)\]/i',safe($_POST['content']." "), $tmpAtList);
+		preg_match_all('/\[@(.+?)\]/i',$_POST['content']." ", $tmpAtList);
 		if(!empty($tmpAtList[1])){
 			$arrAtList = array_slice(array_unique($tmpAtList[1]),0,$RFG['max_allow_at']);
 		}
@@ -121,7 +121,7 @@
 			$pageinfo = dbRow("SELECT authorid, title, type, special,commentnum, is_closed FROM zf_contentpages WHERE id=$tid");
 			if($pageinfo['is_closed'] == '1'){exit;}
 
-			$picurl = (substr($_POST['picurl'],0,4) == "http")?safe($_POST['picurl']):"";
+			$picurl = (substr($_POST['picurl'],0,4) == "http")?trim($_POST['picurl']):"";
 			
 			$price = intval($_POST['price']);
 			

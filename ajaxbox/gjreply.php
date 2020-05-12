@@ -49,7 +49,7 @@
 		$postID = intval($_POST['id']);
 		$postTargetID = intval($_POST['target']);
 		$postTID =  intval($_POST['tid']);
-		$says = $_POST['says']==""?"":" (".safe($_POST['says']).")";
+		$says = $_POST['says']==""?"":" (".htmlentities($_POST['says']).")";
 		
 		$targetInfo = dbRow("SELECT * FROM zf_user WHERE id = {$postTargetID}");
 		
@@ -80,8 +80,7 @@
 				"content"	=>str_replace('\"',"",$_POST['says']), 
 				"timestamp"	=>time()
 			);
-			$comment = safe(serialize($comments));
-			dbQuery("UPDATE zf_reply SET comment = '$comment' WHERE id={$postID}");
+			dbQuery("UPDATE zf_reply SET comment = ? WHERE id=?",[serialize($comments),$postID]);
 			
 			
 			}else{
@@ -96,7 +95,7 @@
 				$payment = $amount;
 			}
 			
-			dbQuery("UPDATE zf_reply SET praise = praise {$sign} {$amount}, modrecord = CONCAT_WS(' | ', modrecord,'{$modrecord}') WHERE id={$postID}");
+			dbQuery("UPDATE zf_reply SET praise = praise {$sign} {$amount}, modrecord = CONCAT_WS(' | ', modrecord,?) WHERE id={$postID}",[$modrecord]);
 			dbQuery("UPDATE zf_contentpages SET tpraise = tpraise {$sign} {$amount} WHERE id={$postTID}");
 			dbQuery("UPDATE zf_user SET score1 = score1 - $payment WHERE id={$gId}");
 			dbQuery("UPDATE zf_user SET score1 = score1 $sign $total, gp = gp {$sign} $amount WHERE id={$postTargetID}");

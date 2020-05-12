@@ -39,95 +39,96 @@ include template("header");
 
 ?>
 <style type="text/css">
-
-	.item{
-	width:100%;
-	padding:0.2em;
-	border-bottom:1px solid #DDD;
+	.item {
+		width: 100%;
+		padding: 0.2em;
+		border-bottom: 1px solid #DDD;
 	}
-
 </style>
 
 <div class='panel' style='padding:1em'>
 
-	<?php foreach ($getCate as $row_getCate) {?>
+	<?php foreach ($getCate as $row_getCate) { ?>
 
-		<?php unset($allid);if ($row_getCate['id'] == 6 && ($userinfo['birthday'] == '0000-00-00' || getAge($userinfo['birthday']) < 18)) {break;}?>
-
-
-
-		<div class='board_of_<?=$row_getCate['id'];?>' style='max-height:1000px;'>
-
-			<h2><?=$row_getCate['name'];?></h2>
-
-
-			<?php foreach ($getForums as $row_getForums) {?>
+		<?php unset($allid);
+		if ($row_getCate['id'] == 6 && ($userinfo['birthday'] == '0000-00-00' || getAge($userinfo['birthday']) < 18)) {
+			break;
+		} ?>
 
 
 
-				<?php if ($row_getForums['cate'] == $row_getCate['id'] && $row_getForums['postcount'] != 0) {?>
-					<?$showcate[$row_getCate['id']] = true;?>
-					<?php $allid[] = $row_getForums['id'];?>
+		<div>
 
-					<div class='item'>
+			<h2><?= $row_getCate['name']; ?></h2>
 
-						<?php if ($row_getCate['id'] == 0) {?>
-							<a class='newsmallfont' href="viewforum.php?fid=<?php echo $row_getForums['id']; ?>"><?=htmlspecialchars($row_getForums['name']);?></a>
-						<?} else {?>
+			<div class='row'>
+				<?php foreach ($getForums as $row_getForums) { ?>
 
-							<?php if ($row_getForums['icon'] != "") {?>
-								<img width="<?=$picwidth;?>" height="<?=$picwidth;?>" src="<?=$row_getForums['icon'];?>" class="left" alt="zone_icon" style="margin:2px 5px 2px 2px; border-radius:2px; border:1px solid #EEE" />
-							<?} else {?>
-								<div style='margin:2px 5px 2px 2px;height:<?=$picwidth;?>px;width:<?=$picwidth;?>px' class='left'></div>
-							<?}?>
-							<div>
-								<strong>
-									<a href="viewforum.php?fid=<?php echo $row_getForums['id']; ?>"><?php echo htmlspecialchars($row_getForums['name']); ?></a>
-								</strong>
 
-								<!-- <?php if ($row_getForums['allowguest'] == 1 || $isLog) {?>
+
+					<?php if ($row_getForums['cate'] == $row_getCate['id'] && $row_getForums['postcount'] != 0) { ?>
+						<? $showcate[$row_getCate['id']] = true; ?>
+						<?php $allid[] = $row_getForums['id']; ?>
+
+						<div class='col-md-6'>
+
+							<?php if ($row_getCate['id'] == 0) { ?>
+								<a class='newsmallfont' href="viewforum.php?fid=<?php echo $row_getForums['id']; ?>"><?= htmlspecialchars(mb_substr($row_getForums['name'], 0, 10)); ?></a>
+							<? } else { ?>
+
+								<?php if ($row_getForums['icon'] != "") { ?>
+									<img width="<?= $picwidth; ?>" height="<?= $picwidth; ?>" src="<?= $row_getForums['icon']; ?>" class="left" alt="zone_icon" style="margin:2px 5px 2px 2px; border-radius:2px; border:1px solid #EEE" />
+								<? } else { ?>
+									<div style='margin:2px 5px 2px 2px;height:<?= $picwidth; ?>px;width:<?= $picwidth; ?>px' class='left'></div>
+								<? } ?>
+								<div>
+									<strong>
+										<a href="viewforum.php?fid=<?php echo $row_getForums['id']; ?>"><?php echo htmlspecialchars(mb_substr($row_getForums['name'], 0, 10)); ?></a>
+									</strong>
+
+									<!-- <?php if ($row_getForums['allowguest'] == 1 || $isLog) { ?>
 									<a class='newsmallfont' href="post.php?fid=<?php echo $row_getForums['id']; ?>&amp;type=post">發帖</a>
-								<?php }?><br /> -->
+								<?php } ?><br /> -->
 
-								<span class='newsmallfont'>(帖子數:<?=$row_getForums['postcount'];?>)</span>
+									<span class='newsmallfont'>(帖子數:<?= $row_getForums['postcount']; ?>)</span>
 
-							</div>
-							<div class='clear'></div>
-						<?}?>
-					</div>
-				<?}?>
+								</div>
+								<div class='clear'></div>
+							<? } ?>
+						</div>
+					<? } ?>
 
-			<?}?>
-
-			<div class='clear'></div>
-			<!-- <?if ($allid) {?>
-			<a href='viewforum.php?fid=<?=implode("_", $allid);?>' >"<?=$row_getCate['name'];?>"區塊全部帖子</a><?php unset($allid);?>
-			<?}?> -->
-		</div>
-        <?php if (!isset($showcate[$row_getCate['id']])) {?>
-                <script>
-                //$(document).load(function(){
-                    $(".board_of_<?=$row_getCate['id'];?>").hide()
-                //});
-                </script>
-            <?}?>
-
-	<?php }?>
-
-
-<hr />
-<h2>開新區</h2>
-<div class='' style='max-width:320px'>
-	<form action="search.php" method="get" name="hdform2">
-		<div class="input-group">
-			<input name="kw" type="text" placeholder="輸入區名"  class="form-control" />
-			<div class="input-group-btn">
-
-				<input type="submit" value="確定" class="btn btn-default" />
+				<? } ?>
 			</div>
+
+			<!-- <? if ($allid) { ?>
+			<a href='viewforum.php?fid=<?= implode("_", $allid); ?>' >"<?= $row_getCate['name']; ?>"區塊全部帖子</a><?php unset($allid); ?>
+			<? } ?> -->
 		</div>
-	</form>
-</div>
+		<?php if (!isset($showcate[$row_getCate['id']])) { ?>
+			<script>
+				//$(document).load(function(){
+				$(".board_of_<?= $row_getCate['id']; ?>").hide()
+				//});
+			</script>
+		<? } ?>
+
+	<?php } ?>
+
+
+	<hr />
+	<h2>開新區</h2>
+	<div class='' style='max-width:320px'>
+		<form action="search.php" method="get" name="hdform2">
+			<div class="input-group">
+				<input name="kw" type="text" placeholder="輸入區名" class="form-control" />
+				<div class="input-group-btn">
+
+					<input type="submit" value="確定" class="btn btn-default" />
+				</div>
+			</div>
+		</form>
+	</div>
 
 </div>
 

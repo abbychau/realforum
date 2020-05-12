@@ -5,15 +5,16 @@ $htmltitle = "搜尋";
 
 //搜版塊
 if (isset($_GET["kw"])) {
-	if ($_GET["kw"] == "") {
+	if (trim($_GET["kw"]) == "") {
 		screenMessage("Error", "Cannot search empty keyword");
 	}
-	$getKw = safe($_GET['kw']);
-	$tmpFid = dbRs("SELECT id FROM zf_contenttype WHERE name = '$getKw'");
+	$getKw = trim($_GET['kw']);
+
+	$tmpFid = dbRs("SELECT id FROM zf_contenttype WHERE name = ?", [$getKw]);
 	if ($tmpFid != false) {
 		header("LOCATION: /viewforum.php?fid=$tmpFid");
 	} else {
-		$likeList = dbAr("SELECT * FROM zf_contenttype WHERE name LIKE '%$getKw%'");
+		$likeList = dbAr("SELECT * FROM zf_contenttype WHERE name LIKE ?", ["%$getKw%"]);
 
 		if (!$likeList) {
 			header("LOCATION: /build.php?kw=" . urlencode($_GET["kw"]));
@@ -21,36 +22,37 @@ if (isset($_GET["kw"])) {
 		}
 	}
 }
-/*
-		//搜全文
-		if(isset($_GET['q'])){
-		
-		$q = safe($_GET["q"]);
-		
-		if($isLog == true){
-		
-		$page = isset($_GET['page'])?$_GET['page']:0;
+
+//搜全文
+if (isset($_GET['q']) && false) {
+	exit;
+	//performance issue;
+	$q = trim($_GET["q"]);
+
+	if ($isLog == true) {
+
+		$page = isset($_GET['page']) ? $_GET['page'] : 0;
 		$startRow_getConList = $page * $maxRows;
-		
-		$pageArr = dbAr("SELECT a.id, datetime, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND content LIKE '%$q%' ORDER BY a.id DESC LIMIT $page, 20");
-		
-		useMoney(1,$gId);
+
+		$pageArr = dbAr("SELECT a.id, datetime, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND content LIKE ? ORDER BY a.id DESC LIMIT $page, 20",["%$q%"]);
+
+		useMoney(1, $gId);
 		$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
-		}
-		}
-	*/
+	}
+}
+
 //搜版塊文
 if (isset($_GET['fid'])) {
 	exit;
-	//injection or performance issue;
-	$q = safe($_GET["fidq"]);
+	//performance issue;
+	$q = trim($_GET["fidq"]);
 	$fid = intval($_GET["fid"]);
 	if ($isLog == true) {
 
 		$page = isset($_GET['page']) ? $_GET['page'] : 0;
 		$startRow_getConList = $page * $maxRows;
 
-		$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE '%$q%' AND a.fid = $fid ORDER BY a.id DESC LIMIT $page, 20");
+		$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE ? AND a.fid = $fid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
 		$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
 	}
 }
@@ -59,13 +61,13 @@ if (isset($_GET['fid'])) {
 if (isset($_GET['aid'])) {
 	exit;
 	//injection or performance issue;
-	$q = safe($_GET["akw"]);
+	$q = trim($_GET["akw"]);
 	$aid = intval($_GET["aid"]);
 
 	$page = isset($_GET['page']) ? $_GET['page'] : 0;
 	$startRow_getConList = $page * $maxRows;
 
-	$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE '%$q%' AND a.authorid = $aid ORDER BY a.id DESC LIMIT $page, 20");
+	$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE ? AND a.authorid = $aid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
 	$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
 }
 
@@ -74,7 +76,7 @@ if (isset($_GET['member'])) {
 	if ($_GET["member"] == "") {
 		screenMessage("Error", "Cannot search empty member id.");
 	}
-	$user = strtolower(safe($_GET['member']));
+	$user = strtolower(trim($_GET['member']));
 	$zid = dbRs("SELECT id FROM zf_user WHERE lower(username) = ?", [$user]);
 	if ($zid == false) {
 		screenMessage("錯誤", "找不到用戶, 請返回", prevURL());

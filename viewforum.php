@@ -105,7 +105,7 @@
 	}
 	
 	
-	$q = htmlentities(safe($_GET['q']));
+	$q = urlencode($_GET['q']);
 	if(mb_strlen($q,'utf8')>1){
 		//$extcon .= "AND title LIKE '%$q%'";
 		header("location:gSearchResult.php?q={$q}+{$boardInfo['name']}&board={$gfid}");

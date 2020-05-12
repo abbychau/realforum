@@ -51,9 +51,7 @@
 		}
 		
 		public static function isThreadExists($authorid,$title){
-			$title = safe($title);
-			$authorid = intval($authorid);
-			$c = dbRs("SELECT count(1) FROM zf_contentpages WHERE authorid = $authorid AND title = '{$title}'");
+			$c = dbRs("SELECT count(1) FROM zf_contentpages WHERE authorid = ? AND title = ?",[intval($authorid),$title]);
 			return intval($c)>0;
 		}
 		

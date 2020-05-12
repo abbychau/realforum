@@ -29,9 +29,9 @@
 		if(!move_uploaded_file ($filename, $destination)){die("上傳文件出錯!");exit;}
 		
 		$pinfo=pathinfo($destination);
-		$fname = $pinfo[basename];
-		$href = safe($_POST['href']);
-		$alt = safe($_POST['alt']);
+		$fname = $pinfo['basename'];
+		$href = trim($_POST['href']);
+		$alt = trim($_POST['alt']);
 		$ownerid = intval($gId);
 		$x = intval($_POST['x']);
 		$y = intval($_POST['y']);
@@ -41,7 +41,8 @@
 		$row_gets1 = dbRs("SELECT score1 FROM zf_user where id = $ownerid");
 		if($dmoney > $row_gets1['score1']){die('金錢不足, 你需要$dmoney 金錢!');}
 		
-		dbQuery("INSERT INTO zf_sticker (`left`,`top`,`src`,`href`,`alt`,`ownerid`) VALUES ('$x', '$y', '$src', '$href', '$alt', '$ownerid')");
+		dbQuery("INSERT INTO zf_sticker (`left`,`top`,`src`,`href`,`alt`,`ownerid`) VALUES (?,?,?,?,?,?)",
+	[$x, $y, $src, $href, $alt, $ownerid]);
 		dbQuery("UPDATE zf_user set score1 = score1 - $dmoney where id = {$ownerid}");
 	}
 ?>
