@@ -2,6 +2,11 @@
 	require_once('Connections/zkizblog.php'); 
 	require_once('include/common.inc.php');
 	
+	if(!isset($_GET['home'])){
+		header("location:/viewforum.php");
+		exit;
+	}
+
 	$strGrabSQL = "SELECT * FROM zf_attention WHERE username = '$gUsername' LIMIT 100";
 	if($_GET['action']=='delete'){
 		$code= safe($_GET['code']);

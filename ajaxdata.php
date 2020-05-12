@@ -55,8 +55,7 @@
 	//查會員勛章
 	if($_GET['type'] == "achievements"){
 		
-		$zid = safe($_GET['zid']);
-		$data = dbAr("SELECT name,rank,description FROM `zm_badges` a, zm_zid_badge b WHERE a.id = b.badge AND b.zid = $zid order by rank desc");
+		$data = dbAr("SELECT name,rank,description FROM `zm_badges` a, zm_zid_badge b WHERE a.id = b.badge AND b.zid = ? order by rank desc",[$_GET['zid']]);
 		echo json_encode($data);
 		exit;
 	}

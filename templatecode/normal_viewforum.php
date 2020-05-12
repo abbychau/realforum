@@ -188,7 +188,7 @@
             </div>
             <div class='col-md-3 margin0 pull-right'>
                 <div class='right'>
-                    <?php if (($noguest != true || $isLog == true) && $isnormal == true && !$is_banned) { ?>
+                    <?php if (($noguest != true || $isLog == true) && !$is_banned) { ?>
                         <a href="post.php?type=post&amp;fid=<?= $gfid; ?>"
                            class='btn btn-primary'><span class="glyphicon glyphicon-pencil"></span> 發表主題</a>
                     <?php } ?>
@@ -200,15 +200,14 @@
 
 
         <?php if ($totalRows_getConList > 0) { ?>
-            <div class="panel">
-                <div class="panel-body">
+            
 
                     <? if($gtype!="all"){ ?>
                         <div class='viewforum_highlight'>
                             <ul class="nav nav-pills">
                                 <li <? if ($_GET['q'] == ""){ ?>class="active"<? } ?>><a href="viewforum.php?fid=<?= $gfid; ?>">全部</a></li>
 
-                                <? if (sizeof($highlights) > 1) { ?>
+                                <? if ( isset($highlights) && is_array($highlights) && sizeof($highlights) > 1) { ?>
                                     <? foreach ($highlights as $highlight) { ?>
                                         <li <? if ($_GET['q'] == "[{$highlight}]"){ ?> class="active"<? } ?>><a href="viewforum.php?fid=<?= $gfid; ?>&amp;q=[<?= $highlight; ?>]"><?= $highlight; ?></a></li>
                                     <? } ?>
@@ -418,7 +417,7 @@
                     <? } ?>
 
                     </div>
-                </div></div>
+                
         <?php } else { ?>
             <div class='well'>
                 沒有貼子，趕快發一個吧!
@@ -432,7 +431,7 @@
             </div>
             <div class='col-md-3 margin0 pull-right'>
                 <div class='right'>
-                    <?php if (($noguest != true || $isLog == true) && $isnormal == true && !$is_banned) { ?>
+                    <?php if (($noguest != true || $isLog == true) && !$is_banned) { ?>
                         <a href="post.php?type=post&amp;fid=<?= $gfid; ?>"
                            class='btn btn-primary'><span class="glyphicon glyphicon-pencil"></span> 發表主題</a>
                     <?php } ?>

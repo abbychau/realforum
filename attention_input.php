@@ -5,17 +5,15 @@
 	if (!$isLog){screenMessage("錯誤","請先登入","http://members.zkiz.com/login.php");}
 	$strGrabSQL = "SELECT * FROM zf_attention WHERE username = '$gUsername' LIMIT 100";
 	if($_GET['action']=='delete'){
-		$code= safe($_GET['code']);
-		dbQuery("DELETE FROM `zf_attention` WHERE username = '$gUsername' AND code = '$code'");
+		dbQuery("DELETE FROM `zf_attention` WHERE username = :username AND code = :code",['username'=>$gUsername,'code'=>$_GET['code']]);
 		$redis->delete($strGrabSQL);
 	}
 	
 	if($_POST['code']!=''){
-		$code= safe($_POST['code']);
-		if(!is_numeric($code)){
+		if(!is_numeric($_POST['code'])){
 			screenMessage("Error", "Wrong code number. (we only need for example : 5).");
 		}
-		dbQuery("INSERT INTO `zf_attention` (`username`,`code`)VALUES ('$gUsername','$code')");
+		dbQuery("INSERT INTO `zf_attention` (`username`,`code`)VALUES (:username,:code)",['username'=>$gUsername,'code'=>$_GET['code']]);
 		$redis->delete($strGrabSQL);
 	}
 	

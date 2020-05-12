@@ -137,14 +137,15 @@ function force_balance_tags( $text ) {
 	
 	
 	if($_POST['advertisement_id']){
-		$adv_id = safe($_POST['advertisement_id']);
-		$content = safe(strip_tags($_POST['content'],'<p><div><br><span><b><strong><i><a><img>'));
+		$content = strip_tags($_POST['content'],'<p><div><br><span><b><strong><i><a><img>');
 		$content = force_balance_tags($content);
-		$adv_price = dbRs("SELECT price FROM zf_advertisement WHERE id = $adv_id");
+		$adv_price = dbRs("SELECT price FROM zf_advertisement WHERE id = ?",[$_POST['advertisement_id']]);
 		
 		useMoney($adv_price,$gId);
 		
-		dbQuery("INSERT INTO `zf_advertisement_record` (`id` ,`advertisement_id` ,`zid` ,`content` ,`create_date`) VALUES (NULL ,  '$adv_id',  '{$my['id']}',  '{$content}', CURRENT_TIMESTAMP);");
+        dbQuery("INSERT INTO `zf_advertisement_record` (`id` ,`advertisement_id` ,`zid` ,`content` ,`create_date`) VALUES (NULL , ?,  ?,  ?, CURRENT_TIMESTAMP);",
+        [$_POST['advertisement_id'],$my['id'],$content]
+        );
 	}
 	$arr = dbAr("SELECT * FROM zf_advertisement_record ORDER BY id DESC LIMIT 20");
 	$advertisementInfo = dbAr("SELECT * FROM zf_advertisement"); //dbAr dbRow dbRs

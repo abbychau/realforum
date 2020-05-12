@@ -9,15 +9,12 @@
 			if($title == ""){return -1;}
 			
 			if($content == ""){return -2; }
-			$subtitle = safe(trim($subtitle));
-			$content = safe(trim($content));
-			$title = safe(trim($title));
+			$zid=intval($zid);
 			foreach($blackwords as $v){
 				if(strstr($title,$v)){
 					return -3;
 				}
 			}
-			//die($content);
 			if($my['nobj']==1){
 				$newPostScore1 = $RFG['newPostScore1']*0.5;
 			}else{
@@ -26,20 +23,24 @@
 			if($gId == $zid){
 				$username=$gUsername;
 			}else{
-				$username = safe(dbRs("SELECT username FROM zf_user WHERE id = $zid"));
+				$username = dbRs("SELECT username FROM zf_user WHERE id = $zid");
 			}
-			$lastTID = dbQuery("INSERT INTO zf_contentpages (title,subtitle, type, authorusername,authorid,special,create_timestamp) VALUES ('{$title}','{$subtitle}',{$fid},'{$username}',{$zid},{$special},CURRENT_TIMESTAMP)");
+			$lastTID = dbQuery(
+				"INSERT INTO zf_contentpages (title,subtitle, type, authorusername,authorid,special,create_timestamp) VALUES (:title,:subtitle,{$fid},:username,{$zid},{$special},CURRENT_TIMESTAMP)"
+				,['title'=>$title,'subtitle'=>$subtitle,'username'=>$username]
+			);
 			
-			dbQuery("INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, '$content', '$picurl', '$datetime', '$ip', '$zid', 1, '$price')");
-			
-			if(trim($subtitle)!=""){
-				$newPostScore1 = $newPostScore1 *1.5;
-			}
-			
+			dbQuery(
+				"INSERT INTO zf_reply (fid, fellowid, content, picurl, datetime, ip, authorid, isfirstpost, price) VALUES ($fid, $lastTID, :content, '$picurl', '$datetime', '$ip', '$zid', 1, '$price')"
+				,['content'=>$content]
+			);
+						
 			if($isLog){
 				dbQuery("UPDATE zf_user SET postnum = postnum + 1, postnum_today = postnum_today+1, score1 = score1 + $newPostScore1 where id = '$zid'");
 			}
-			dbQuery("UPDATE zf_contenttype SET threadcount = threadcount + 1, datetime = NOW(), lastaid=$zid,lasttid=$lastTID,postcount=postcount+1,lastusername='{$username}',lasttitle='{$title}' WHERE id = {$fid}");
+			dbQuery("UPDATE zf_contenttype SET threadcount = threadcount + 1, datetime = NOW(), lastaid=$zid,lasttid=$lastTID,postcount=postcount+1,lastusername=:username,lasttitle=:title WHERE id = {$fid}"
+			,['username'=>$username,'title'=>$title]
+			);
 			if($also_subscribe){
 				dbQuery("INSERT IGNORE INTO zf_relation SET source_zid = {$zid}, target_zid = {$lastTID}, relation_type = 4");
 			}
@@ -58,7 +59,6 @@
 		
 		public static function replyThread($fid, $tid, $pid, $content, $picurl, $datetime, $ip, $zid,$username, $price, $threadAuthorId,$also_subscribe){
 			global $my,$RFG,$isLog;
-			$username = safe($username);
 			$score1AmountGet = mb_strlen($content,'utf8') > 15 ? $RFG['newReplyScore1High'] : $RFG['newReplyScore1Low'];
 			
 			if($my['nobj']==1){
@@ -69,7 +69,7 @@
 			}
 			
 			dbQuery("INSERT INTO zf_reply (fid, fellowid,parent_id, content, picurl, `datetime`, ip, authorid, isfirstpost,price) VALUES ($fid, $tid, $pid, '$content', '$picurl', '$datetime', '$ip', '$zid', 0, '$price')");
-			dbQuery("UPDATE zf_contentpages SET commentnum = commentnum + 1, lastid=$zid,lastusername='{$username}', lastdatetime='$datetime' where id = '$tid'");
+			dbQuery("UPDATE zf_contentpages SET commentnum = commentnum + 1, lastid=$zid,lastusername=:username, lastdatetime='$datetime' where id = '$tid'",['username'=>$username]);
 			
 			if($isLog){
 				dbQuery("UPDATE zf_user SET postnum = postnum + 1 , postnum_today=postnum_today+1, score1 = score1 + $score1AmountGet where `id` = $zid");

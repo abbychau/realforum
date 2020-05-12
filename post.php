@@ -71,7 +71,11 @@
                 screenMessage("ERROR","Title too long(limit:150)");
             }
 
-			$lastTID = rfPosts::newThread($_POST['title'], $_POST['subtitle'], $fid, $_POST['content'], $picurl, $datetime, $ip, $gId, $special, $price,$tags, ($_POST["also_subscribe"]==1));
+			$lastTID = rfPosts::newThread(
+				$_POST['title'], 
+				$_POST['subtitle'], 
+				$fid, $_POST['content'], $picurl, $datetime, $ip, $gId, 
+				$special, $price,$tags, ($_POST["also_subscribe"]==1));
 
 
 			if($lastTID < 0){

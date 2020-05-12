@@ -6,7 +6,7 @@ $zkizblog = $conn;
 //$mygooglekeyword = getSearchEngineQuery();
 $default_types = array("原創","轉貼","分享","貼圖","閒聊","大發現","狂賀","下載",date("n月j日"));
 $g_domain = "http://realforum.zkiz.com";
-$g_low_post_captcha = 10;
+$g_low_post_captcha = 300000;
 
 if($_GET['app'] == "1" || $_COOKIE['is_app'] == "1"){
 	setcookie("is_app", "1", time()+3600*24*365);
