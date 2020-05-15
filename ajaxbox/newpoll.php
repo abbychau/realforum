@@ -7,7 +7,7 @@ if(!$isLog){die("Please Login First");}
 
 
 $tid = intval($_GET['tid']);
-if($tid==""){$tid=$_POST['fellowid'];}
+if($tid==""){$tid=$_POST['tid'];}
 
 //DELL POLL
 if ((isset($_POST["realdel"])) && ($_POST["realdel"] == "true")) {
@@ -15,7 +15,7 @@ if ((isset($_POST["realdel"])) && ($_POST["realdel"] == "true")) {
 if($gId != dbRs("SELECT authorid FROM zf_contentpages WHERE id = {$tid}") && $gUserGroup < 8){die("Access Denied! pos:3");}else{$isAdmin=true;}
 
 if(!$isAdmin){die("Access Denied! pos:1");}
-	mysql_query("DELETE FROM zf_poll WHERE fellowid = {$tid}");
+	mysql_query("DELETE FROM zf_poll WHERE tid = {$tid}");
 	mysql_query("UPDATE zf_contentpages SET special = 0 where `id` = {$tid}");
 	header("Location:/thread.php?tid={$tid}");
 }
@@ -30,10 +30,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "formnp")) {
 		$users[] = array("");
 	}
 	
-	$insertSQL = sprintf("INSERT INTO zf_poll (`items`, `option`, `fellowid`, `users`) VALUES (%s, %s, %s, %s)",
+	$insertSQL = sprintf("INSERT INTO zf_poll (`items`, `option`, `tid`, `users`) VALUES (%s, %s, %s, %s)",
 		GetSQLValueString(serialize($items), "text"),
 		GetSQLValueString($_POST['option'], "int"),
-		GetSQLValueString($_POST['fellowid'], "int"),
+		GetSQLValueString($_POST['tid'], "int"),
 		GetSQLValueString(serialize($users),"text"));
 
 	mysql_query($insertSQL);
@@ -50,7 +50,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
 	$mycheck = $_POST['option'];
 	if(sizeof($mycheck)==0){die("Please select an option at least.");}
 
-	$getReply = mysql_query("SELECT `option`, users FROM zf_poll WHERE fellowid={$tid}");
+	$getReply = mysql_query("SELECT `option`, users FROM zf_poll WHERE tid={$tid}");
 	$row_getReply = mysql_fetch_assoc($getReply);
 	$string=$row_getReply['users'];
 	$users=unserialize($string);
@@ -71,7 +71,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
 		$users[$mycheck-1][] = $gUsername;
 	}
 
-	mysql_query("UPDATE zf_poll SET users = '".serialize($users)."' WHERE fellowid = {$tid}");
+	mysql_query("UPDATE zf_poll SET users = '".serialize($users)."' WHERE tid = {$tid}");
 	mysql_free_result($getReply);
 	
 	header("Location:/thread.php?tid={$tid}");
@@ -98,7 +98,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
   <label>
     <input type="radio" name="option" value="1" />多選
   </label>
-  <input type="hidden" name="MM_insert" value="formnp" /><input type="hidden" name="fellowid" value="<?php echo $_GET['tid'];?>" /><br />
+  <input type="hidden" name="MM_insert" value="formnp" /><input type="hidden" name="tid" value="<?php echo $_GET['tid'];?>" /><br />
   <input type="submit" name="button" id="button" value="送出" />
 </form>
 <? } ?>
@@ -106,7 +106,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
 <form name="formdel" method="post" action="ajaxbox/newpoll.php">
 	確認要刪除這個貼的投票和投票紀錄嗎?(這個操作不能復原)
     <input type="hidden" value="true" name="realdel" />
-    <input type="hidden" value="<?=$_GET['tid'];?>" name="fellowid" />
+    <input type="hidden" value="<?=$_GET['tid'];?>" name="tid" />
     <input type="submit" name="button" id="button" value="確認" />
 </form>
 <? } ?>

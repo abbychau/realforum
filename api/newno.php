@@ -13,7 +13,7 @@ require_once('../Connections/zkizblog.php');
 	
 	//START ITEMS
 	
-	$query_getConList = "SELECT SQL_CACHE a.fid, a.fellowid, a.username, a.datetime, commentnum, substr(a.title,1,30) as title, b.views, b.isshow, b.isdigest, b.id FROM zf_view_thread a, zf_contentpages b WHERE isfirstpost = 1 AND a.fellowid = b.id ORDER BY id DESC LIMIT 10";
+	$query_getConList = "SELECT SQL_CACHE a.fid, a.tid, a.username, a.datetime, commentnum, substr(a.title,1,30) as title, b.views, b.isshow, b.isdigest, b.id FROM zf_view_thread a, zf_contentpages b WHERE isfirstpost = 1 AND a.tid = b.id ORDER BY id DESC LIMIT 10";
 	$getConList = mysql_query($query_getConList, $zkizblog) or die(mysql_error());
 	$row_getConList = mysql_fetch_assoc($getConList);
 
@@ -24,7 +24,7 @@ echo '('.$row_getNew['views'].'/'.$row_getNew['commentnum'].')';
 	do {
 		echo "<item>\n";
 		echo "<title>".htmlspecialchars($row_getNew['title'])."</title>\n";
-		echo "<link>{$g_domain}/thread.php?tid=".$row_getNew['fellowid']."</link>\n";
+		echo "<link>{$g_domain}/thread.php?tid=".$row_getNew['tid']."</link>\n";
 		echo "<description>"."作者:".$row_getNew['username']." 發表日期:".$row_getNew['datetime']."</description>\n";
 		echo "</item>\n";
 		} while ($row_getConList = mysql_fetch_assoc($getConList));

@@ -32,7 +32,7 @@
 		switch($_POST['adminact']){
 			case 1;
 			dbQuery("UPDATE zf_contentpages SET isshow = 0 WHERE id=$tid");
-			//dbQuery("DELETE FROM zf_reply WHERE fellowid=$tid");
+			//dbQuery("DELETE FROM zf_reply WHERE tid=$tid");
 			$stract = "刪除";
 			break;
 			case 2;
@@ -53,7 +53,7 @@
 			break;
 			case 6:
 			dbQuery("UPDATE `zf_contentpages` SET TYPE =$tofid WHERE id =$tid");
-			dbQuery("UPDATE `zf_reply` SET fid =$tofid WHERE fellowid =$tid");
+			dbQuery("UPDATE `zf_reply` SET fid =$tofid WHERE tid =?",$tid);
 			$stract = "移動";
 			break;
 			case 7:

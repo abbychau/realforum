@@ -15,7 +15,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
 	$postTID =  intval($_POST['tid']);
 	$says = htmlentities($_POST['says']);
 	$pmContent = "<b>{$gUsername}</b>給你留言”{$says}”! TID:{$postTID}";
-	$replyInfo = dbRow("SELECT fid, comment FROM zf_reply WHERE id = {$postID}");
+	$replyInfo = dbRow("SELECT fid, comment FROM zf_reply WHERE id = ?",$postID);
 	
 	$bannedUser = dbRs("SELECT banned_member FROM zf_contenttype WHERE id = {$replyInfo['fid']}");
 	if(stristr($bannedUser,",")){

@@ -49,7 +49,7 @@ if($money<$price){die("Not Enough Money");}
 
 	
 	
-	dbQuery("INSERT into zf_purchase SET rid = {$grid}, zid = {$gId}, spent = {$price}");
+	dbQuery("INSERT into zf_purchase SET rid = ?, zid = ?, spent = ?",[$grid,$gId,$price]);
 	
 	
 	if($_POST['tid']!=""){

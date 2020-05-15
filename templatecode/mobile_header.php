@@ -129,7 +129,7 @@
 							<?php } else { ?>
 							
 							
-							<a href="/pm.php">短信息(<?=dbRs("SELECT count(*) FROM zf_pm WHERE isread = 0 AND to_id = {$gId} AND del_receiver = 0");?>)</a>
+							<a href="/pm.php">短信息(<?=dbRs("SELECT count(*) FROM zf_pm WHERE isread = 0 AND to_id = ? AND del_receiver = 0",[$gId]);?>)</a>
 							
 							<a onclick="dropdown('notibox','ajaxbox/notification.php','0 30')" id="notibox">通知(<span id="notify"></span>)</a>
 						<?php } ?>

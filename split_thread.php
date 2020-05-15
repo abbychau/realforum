@@ -65,8 +65,8 @@
 			); 
 		}
 		
-		dbQuery("UPDATE zf_reply SET fellowid = $newThreadID WHERE id IN ({$result})");
-		dbQuery("UPDATE zf_reply SET isfirstpost = 0 WHERE fellowid = $newThreadID");
+		dbQuery("UPDATE zf_reply SET tid = $newThreadID WHERE id IN ({$result})");
+		dbQuery("UPDATE zf_reply SET isfirstpost = 0 WHERE tid = $newThreadID");
 		dbQuery("UPDATE zf_reply SET isfirstpost = 1 WHERE id = {$result[0]}");
 		
 		//Finished, screen Message
@@ -79,7 +79,7 @@
 	$getReply = dbAr("	SELECT score_trade, is_rbenabled, comment, a.id as id, fid, timestamp,price, modrecord, content, picurl, datetime, ip, authorid, isfirstpost, praise, username,alias, gender, pic, email, url, lastlogin, signature, usertype, postnum, gp, score1, score2, score3, issign, gold, silver, bronze
 	FROM zf_reply a, zf_user b 
 	WHERE a.authorid = b.id and 
-	fellowid = {$gTid} 
+	tid = {$gTid} 
 	ORDER BY a.id ASC");
 
 	if(!$getReply){	screenMessage("Error",'No article found.');	}
@@ -93,7 +93,7 @@
 	$keywords = "$title, ".$boardInfo['name'].", RealForum";
 	$htmltitle = "$title - ".$boardInfo['name'];
 
-	$isReplied = (dbRs("SELECT count(*) FROM zf_reply WHERE fellowid = {$gTid} AND authorid = {$gId}")>0 && $isLog);
+	$isReplied = (dbRs("SELECT count(*) FROM zf_reply WHERE tid = {$gTid} AND authorid = {$gId}")>0 && $isLog);
 
 	include(template("header"));
 

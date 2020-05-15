@@ -3,13 +3,13 @@ require_once 'Connections/zkizblog.php';
 require_once 'include/common.inc.php';
 
 // //ONE newest PIC or VIDEO
-// $getPic = dbAr("SELECT b.title, picurl, fellowid FROM zf_reply a, zf_contentpages b
+// $getPic = dbAr("SELECT b.title, picurl, tid FROM zf_reply a, zf_contentpages b
 // WHERE picurl <> ''
 // AND (
 // (picurl LIKE '%youtube.com/v/%' AND SUBSTRING(picurl, -1) <> '/')
 // OR lower(SUBSTRING(picurl, -3)) IN ('jpg','gif','png','bmp','jpeg')
 // )
-// AND b.id = a.fellowid
+// AND b.id = a.tid
 // ORDER BY datetime DESC LIMIT 6",60*10);
 // foreach($getPic as $i=>$row_getPic){
 //     if(is_numeric(strpos($row_getPic['picurl'], "youtube.com/v/"))){
@@ -21,7 +21,7 @@ require_once 'include/common.inc.php';
 //         $pic[$i]['file']=$row_getPic['picurl'];
 //         $pic[$i]['thumb']=$row_getPic['picurl'];
 //     }
-//     $pic[$i]['link']="thread.php?tid=".$row_getPic['fellowid'];
+//     $pic[$i]['link']="thread.php?tid=".$row_getPic['tid'];
 //     $pic[$i]['title']=$row_getPic['title'];
 // }
 

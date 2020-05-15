@@ -34,7 +34,7 @@ if (isset($_GET['q']) && false) {
 		$page = isset($_GET['page']) ? $_GET['page'] : 0;
 		$startRow_getConList = $page * $maxRows;
 
-		$pageArr = dbAr("SELECT a.id, datetime, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND content LIKE ? ORDER BY a.id DESC LIMIT $page, 20",["%$q%"]);
+		$pageArr = dbAr("SELECT a.id, datetime, title, tid, content FROM zf_reply a, zf_contentpages b WHERE a.tid = b.id AND content LIKE ? ORDER BY a.id DESC LIMIT $page, 20",["%$q%"]);
 
 		useMoney(1, $gId);
 		$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
@@ -52,7 +52,7 @@ if (isset($_GET['fid'])) {
 		$page = isset($_GET['page']) ? $_GET['page'] : 0;
 		$startRow_getConList = $page * $maxRows;
 
-		$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE ? AND a.fid = $fid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
+		$pageArr = dbAr("SELECT `datetime`, title, tid, content FROM zf_reply a, zf_contentpages b WHERE a.tid = b.id AND title LIKE ? AND a.fid = $fid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
 		$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
 	}
 }
@@ -67,7 +67,7 @@ if (isset($_GET['aid'])) {
 	$page = isset($_GET['page']) ? $_GET['page'] : 0;
 	$startRow_getConList = $page * $maxRows;
 
-	$pageArr = dbAr("SELECT `datetime`, title, fellowid, content FROM zf_reply a, zf_contentpages b WHERE a.fellowid = b.id AND title LIKE ? AND a.authorid = $aid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
+	$pageArr = dbAr("SELECT `datetime`, title, tid, content FROM zf_reply a, zf_contentpages b WHERE a.tid = b.id AND title LIKE ? AND a.authorid = $aid ORDER BY a.id DESC LIMIT $page, 20", ["%$q%"]);
 	$queryString = qryStrE("page", $_SERVER['QUERY_STRING']);
 }
 
@@ -106,12 +106,12 @@ include(template('header'));
 				<?php foreach ($pageArr as $v) { ?>
 
 					<div class='ui-widget-header' style='padding:5px'>
-						<strong><a href="thread.php?tid=<?php echo $v["fellowid"]; ?>"><?= $v["title"]; ?></a></strong>
+						<strong><a href="thread.php?tid=<?php echo $v["tid"]; ?>"><?= $v["title"]; ?></a></strong>
 					</div>
 
 
 					<div class='ui-widget-content' style='border-top:0; margin-bottom:10px'>
-						<a href='thread.php?tid=<?php echo $v["fellowid"]; ?>&floorid=<?php echo $v['id']; ?>' class='button'>到該樓層</a>
+						<a href='thread.php?tid=<?php echo $v["tid"]; ?>&floorid=<?php echo $v['id']; ?>' class='button'>到該樓層</a>
 						<div style='max-height:200px;overflow-y:scroll'>
 							<?php echo nl2br(str_replace($q, "<strong>$q</strong>", $v["content"])); ?>
 						</div>
@@ -131,7 +131,7 @@ include(template('header'));
 
 					<?php foreach ($pageArr as $v) { ?>
 						<div style="border:2px #ccc solid; padding:5px; margin:5px">
-							<strong><a href="thread.php?tid=<?php echo $v["fellowid"]; ?>"><?= $v["title"]; ?></a></strong>
+							<strong><a href="thread.php?tid=<?php echo $v["tid"]; ?>"><?= $v["title"]; ?></a></strong>
 							<hr />
 							<?php echo nl2br(str_replace($q, "<strong>$q</strong>", $v["content"])); ?>
 						</div>

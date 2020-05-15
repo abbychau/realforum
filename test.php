@@ -68,11 +68,11 @@ $emptyArt = dbAr("SELECT * FROM `zf_reply` WHERE fid = 168 AND isfirstpost = 0")
 
 foreach($emptyArt as $v){
 $titles = explode("\n",$v['content']);
-$name = dbRs("SELECT title FROM zf_contentpages WHERE id = (SELECT fellowid FROM `zf_reply` WHERE id = {$v['id']})");
+$name = dbRs("SELECT title FROM zf_contentpages WHERE id = (SELECT tid FROM `zf_reply` WHERE id = {$v['id']})");
 $title = "[$name]".str_replace("'","",preg_replace('/\[(.*)\]/','',$titles[0]));
 //die($title);
 dbQuery("INSERT INTO `zf_contentpages` (`id`, `title`, `tags`, `views`, `isshow`, `isdigest`, `special`, `type`, `commentnum`, `tpraise`, `donation`, `lastid`, `authorid`, `lastdatetime`) VALUES (NULL, '$title', 'a:1:{i:0;s:6:\"$name\";}', '11', '1', '0', '0', '168', '0', '0', '0', '14', '14', '{$v['timestamp']}')");
-dbQuery("UPDATE `zf_reply` SET isfirstpost = 1, fellowid = LAST_INSERT_ID() WHERE id = {$v['id']}");
+dbQuery("UPDATE `zf_reply` SET isfirstpost = 1, tid = LAST_INSERT_ID() WHERE id = {$v['id']}");
 if(++$i > 500){die("success for 500");}
 }
 */

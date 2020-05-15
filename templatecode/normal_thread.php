@@ -401,7 +401,7 @@
 
         if($_GET['authoronly']=="" || $_GET['authoronly']==$row_getReply['authorid']){?>
 <?php
-if($row_getReply['authorid'] == 14||$row_getReply['authorid'] == 830){?>
+if(false){ //$row_getReply['authorid'] == 14||$row_getReply['authorid'] == 830?>
   <div class="panel panel-default">
                 <div class="panel-heading" style="font-size:9pt;">
                     This author is being removed.

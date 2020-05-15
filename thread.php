@@ -41,7 +41,7 @@ if ($_GET['wikiterm'] != "") {
 
 if ($_GET['floorid']) {
     $floorid = intval($_GET['floorid']);
-    $numOfAbove = dbRs("SELECT count(*) FROM zf_reply WHERE fellowid = $gTid AND id <= $floorid");
+    $numOfAbove = dbRs("SELECT count(*) FROM zf_reply WHERE tid = $gTid AND id <= $floorid");
     $tmpPage = round($numOfAbove / $maxRows_getReply);
     header("location: thread.php?tid=$gTid&page=$tmpPage#$numOfAbove");
     exit;
@@ -72,11 +72,11 @@ $currentPage = $_SERVER["PHP_SELF"] . (isset($_SERVER['QUERY_STRING']) ? "?" . h
 $currentPagePure = $_SERVER["PHP_SELF"];
 
 $row_getThread = dbRow("SELECT is_closed,donation, isdigest, commentnum, views, a.title, type, authorid, username, special, isshow FROM zf_contentpages a, zf_user c WHERE c.id = a.authorid AND a.id = {$gTid}");
-
-if (sizeof($row_getThread) == 0 || $row_getThread['authorid'] == 14 || $row_getThread['authorid'] == 830) {
-    //screenMessage("錯誤", "找不到主題或主題已被刪除。");
-    header("location:https://articles.zkiz.com/?rfid=$gTid");
-}
+// die($row_getThread['authorid']."X");
+// if (sizeof($row_getThread) == 0 || $row_getThread['authorid'] == 14 || $row_getThread['authorid'] == 830) {
+//     //screenMessage("錯誤", "找不到主題或主題已被刪除。");
+//     header("location:https://articles.zkiz.com/?rfid=$gTid");
+// }
 if ($row_getThread['type'] == "") {
     screenMessage("錯誤", "分類錯誤");
 }
@@ -148,7 +148,7 @@ $startRow_getReply = $gPage * $maxRows_getReply;
 
 //GET POLL
 if ($row_getThread['special'] == 1) {
-    $pollInfo = dbRow("SELECT * FROM zf_poll WHERE fellowid = {$gTid}");
+    $pollInfo = dbRow("SELECT * FROM zf_poll WHERE tid = {$gTid}");
 
     $items = unserialize($pollInfo['items']);
     $users = unserialize($pollInfo['users']);
@@ -160,7 +160,7 @@ if ($row_getThread['special'] == 4) {
 }
 
 
-$totalRows_getReply = dbRs("SELECT count(1) as ce FROM zf_reply WHERE fellowid = {$gTid}",60); //get total rows
+$totalRows_getReply = dbRs("SELECT count(1) as ce FROM zf_reply WHERE tid = {$gTid}",60); //get total rows
 $totalPages_getReply = ceil($totalRows_getReply / $maxRows_getReply) - 1; //totalpage
 
 
@@ -175,23 +175,24 @@ $getReply = dbAr("
 	SELECT score_trade, is_rbenabled, comment, a.id as id, fid, timestamp,price, modrecord, content, picurl, datetime, ip, authorid, isfirstpost, praise, username,alias, gender, pic, email, url, lastlogin, signature, usertype, postnum, gp, score1, score2, score3, issign, gold, silver, bronze
 	FROM zf_reply a, zf_user b 
 	WHERE a.authorid = b.id 
-    AND fellowid = {$gTid}
+    AND tid = {$gTid}
 	ORDER BY a.id $order
 	LIMIT {$startRow_getReply}, {$maxRows_getReply}");
-// AND fellowid = {$gTid}
+// AND tid = {$gTid}
 if (!$getReply) {
 //echo "
 //	SELECT score_trade, is_rbenabled, comment, a.id as id, fid, timestamp,price, modrecord, content, picurl, datetime, ip, authorid, isfirstpost, praise, username,alias, gender, pic, email, url, lastlogin, signature, usertype, postnum, gp, score1, score2, score3, issign, gold, silver, bronze
 //	FROM zf_reply a, zf_user b
 //	WHERE a.authorid = b.id
-//    AND fellowid = {$gTid}
+//    AND tid = {$gTid}
 //	ORDER BY a.id $order
 //	LIMIT {$startRow_getReply}, {$maxRows_getReply}";
-    //SELECT score_trade, is_rbenabled, comment, a.id as id, fid, timestamp,price, modrecord, content, picurl, datetime, ip, authorid, isfirstpost, praise, username,alias, gender, pic, email, url, lastlogin, signature, usertype, postnum, gp, score1, score2, score3, issign, gold, silver, bronze FROM zf_reply a, zf_user b WHERE a.authorid = b.id AND fellowid = 333029 ORDER BY a.id ASC LIMIT 0, 30
+    //SELECT score_trade, is_rbenabled, comment, a.id as id, fid, timestamp,price, modrecord, content, picurl, datetime, ip, authorid, isfirstpost, praise, username,alias, gender, pic, email, url, lastlogin, signature, usertype, postnum, gp, score1, score2, score3, issign, gold, silver, bronze FROM zf_reply a, zf_user b WHERE a.authorid = b.id AND tid = 333029 ORDER BY a.id ASC LIMIT 0, 30
     screenMessage("錯誤", '回覆或作者可能已被刪除, 請回主題頁查看', "/thread.php?tid=$gTid");
 }
 $row_getReply = $getReply[0];
 
+// die($row_getReply['authorid']."X");
 
 //$authorLatest = dbAr("SELECT * FROM zf_contentpages WHERE authorid = {$row_getReply['authorid']} ORDER BY id DESC LIMIT 5");
 $queryString_getReply = qryStrE("page", $_SERVER['QUERY_STRING']);
@@ -238,7 +239,7 @@ if(in_array($boardInfo['is_private'],["1","2"]) && $gUserGroup < 8){
 preg_match('/\[img\](.*?)\[\/img\]/i', $row_getReply['content'], $ogImages);
 $ogImage = str_replace(array("[img]", "[/img]"), "", $ogImages[0]);
 
-$isReplied = (dbRs("SELECT count(*) FROM zf_reply WHERE fellowid = {$gTid} AND authorid = {$gId}") > 0 && $isLog);
+$isReplied = (dbRs("SELECT count(*) FROM zf_reply WHERE tid = {$gTid} AND authorid = {$gId}") > 0 && $isLog);
 
 $secAdv = cacheGet("RF_AD_2");
 
@@ -257,7 +258,6 @@ $description = "{$row_getThread['title']},$tmpIntro,論壇, zkiz, realforum";
 			$getNewNews = dbAr("SELECT * FROM `stock_publicpost` WHERE ($news_subc) ORDER BY publicpost_id DESC LIMIT 8",1);
 		}
 	}
-
 
 
 //$redis->hIncrBy('THREAD_HIT_COUNT_WEEKLY', $gTid, 1);

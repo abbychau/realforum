@@ -8,7 +8,7 @@
 	if($id==""){$id = intval($_POST['id']);}
 	if(!isset($_GET['tid'])){$tid = intval($_POST['tid']);}
 	//authorize
-	$fid = dbRs("SELECT fid FROM zf_reply WHERE fellowid = {$tid}");
+	$fid = dbRs("SELECT fid FROM zf_reply WHERE tid = ?",$tid);
 	if(modRank($fid)==0 && $gUserGroup <= 7){die("Access Denied Required=7 Your Rank=".modRank($fid));}
 	
 	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
@@ -16,8 +16,8 @@
 		$tid = intval($_POST['tid']);
 		$reason = htmlentities($_POST['reason']);
 		
-		$reply_content = dbRow("SELECT * FROM zf_reply WHERE id = $pid");
-		$original = dbRow("SELECT id, username FROM zf_user WHERE id = {$reply_content['authorid']}");
+		$reply_content = dbRow("SELECT * FROM zf_reply WHERE id = ?",$pid);
+		$original = dbRow("SELECT id, username FROM zf_user WHERE id = ?",$reply_content['authorid']);
 		
 		$content = htmlentities($reply_content['content']);
 		//die("INSERT INTO zm_archive SET title = 'RealForum 回貼刪除 - PID:$pid TID:$tid', content='$content', type=1");

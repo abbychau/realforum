@@ -26,7 +26,7 @@
 		$query_getConList = "SELECT isdigest, isshow, c.`datetime`, a.`id`, `title`,views, commentnum, content, picurl,praise
 		
 		FROM `zf_contentpages` a,zf_reply c
-		WHERE c.fellowid = a.id AND a.isshow != 0 AND c.authorid = {$gZid} AND isfirstpost != 1
+		WHERE c.tid = a.id AND a.isshow != 0 AND c.authorid = {$gZid} AND isfirstpost != 1
 		
 		$cateSql
 		
@@ -42,13 +42,13 @@
 		exit;
 		$query_getConList = "SELECT distinct a.`id`, isdigest, isshow, a.`lastdatetime`, `title`, views, commentnum
 		FROM `zf_contentpages` a 
-		INNER JOIN (select distinct fellowid from zf_reply where authorid = {$gZid} ORDER BY `id` desc limit $maxRows_getConList) b 
-		ON a.id = b.fellowid
+		INNER JOIN (select distinct tid from zf_reply where authorid = {$gZid} ORDER BY `id` desc limit $maxRows_getConList) b 
+		ON a.id = b.tid
 		WHERE a.isshow != 0
 		$cateSql ORDER BY a.id
 		LIMIT $startRow_getConList, $maxRows_getConList";
 		
-		$totalRows_getConList = dbRs("SELECT count(distinct a.fellowid) FROM zf_reply a WHERE a.authorid = $gZid",3600*10);
+		$totalRows_getConList = dbRs("SELECT count(distinct a.tid) FROM zf_reply a WHERE a.authorid = $gZid",3600*10);
 		
 	}else if($_GET['show'] == "topic" || $_GET['show'] == ""){
 	

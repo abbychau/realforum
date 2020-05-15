@@ -3,9 +3,8 @@ include_once ('Connections/zkizblog.php');
 include_once ('include/common.inc.php');
 require_once('include/nbbc.php');
 
-$gfid = mysql_real_escape_string($_GET['fid']);
-$gtype = mysql_real_escape_string($_GET['type']);
-$gorder = mysql_real_escape_string($_GET['order']);
+$gfid = intval($_GET['fid']);
+$gtype = intval($_GET['type']);
 $pfid = ($_POST['fid'] == 0) ? 1 : intval($_POST['fid']);
 $currentPage = $_SERVER["PHP_SELF"];
 
@@ -20,7 +19,7 @@ $startRow_getConList = $page * $maxRows_getConList;
 
 	//GET ADMINS
 	$isadmin = 0;
-	$admins = dbAr("SELECT ownerid, username, rank FROM `zf_admin` a, zf_user b WHERE a.ownerid = b.id AND fid = {$gfid} ORDER BY rank");
+	$admins = dbAr("SELECT ownerid, username, rank FROM `zf_admin` a, zf_user b WHERE a.ownerid = b.id AND fid = ? ORDER BY rank",[$gfid]);
 	foreach($admins as $row) {
 		if($row['rank']==1){
 			$master .= "<strong>".$row['username']."</strong> ";
@@ -35,7 +34,7 @@ $startRow_getConList = $page * $maxRows_getConList;
 if($gUserGroup >= 8){$isadmin = 9;}
 $master = $master=="" ? "沒有版主" : $master;
 
-	$row_getType = dbRow("SELECT id, name, intro, allowguest, icon FROM zf_contenttype WHERE id = {$gfid}");
+	$row_getType = dbRow("SELECT id, name, intro, allowguest, icon FROM zf_contenttype WHERE id = ?",$gfid);
 	
 //Main list of articles in board
 $getConList = dbAr("SELECT d.id, content, title
@@ -43,7 +42,7 @@ $getConList = dbAr("SELECT d.id, content, title
 FROM `zf_reply` a, zf_contenttype b, zf_user c , zf_contentpages d
 
 WHERE a.authorid = c.id 
-AND a.fellowid = d.id
+AND a.tid = d.id
 AND b.id = d.type
 AND b.id = $gfid
 

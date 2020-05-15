@@ -15,12 +15,12 @@
 	}
 	//
 	if($_GET['type'] == "1"){
-		echo dbRs("SELECT count(*) as ce FROM zf_reply WHERE fellowid = $ajaxGetId");
+		echo dbRs("SELECT count(*) as ce FROM zf_reply WHERE tid = ?",[$ajaxGetId]);
 		exit;
 	}
 	//找用戶
 	if($_GET['type'] == "2"){
-		$tmp = dbRs("SELECT id FROM zf_user WHERE username = '$ajaxGetId'");
+		$tmp = dbRs("SELECT id FROM zf_user WHERE username = ?",[$_GET['id']]);
 		echo $tmp==false?"查無此人":$tmp;
 	}
 	//設定pm 己讀

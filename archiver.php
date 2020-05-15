@@ -17,7 +17,7 @@
 		
 		case 'tid':
 		$tid = intval($_GET['tid']);
-		$replies = dbAr("SELECT * FROM zf_reply WHERE fellowid = $tid ORDER BY id ASC LIMIT 50");
+		$replies = dbAr("SELECT * FROM zf_reply WHERE tid = $tid ORDER BY id ASC LIMIT 50");
 		$title = dbRs("SELECT title FROM zf_contentpages WHERE id = $tid");
 		$tmpIntro = mb_substr(str_replace(array("\n","\r"),"",$replies[0]['content']),0,100,'utf8');
 		$description = "$title,$tmpIntro,論壇, zkiz, realforum";
