@@ -19,9 +19,8 @@ if ((isset($_POST["type"])) && ($_POST["type"] == "add")) {
 
   $updateSQL = "update zf_user set score1 = score1 - 2 where id = $gId";
 
-  mysql_select_db($database_zkizblog, $zkizblog);
-  $Result1 = mysql_query($insertSQL, $zkizblog) or die("sql1");
-  $Result2 = mysql_query($updateSQL, $zkizblog) or die("sql2");
+  dbQuery($insertSQL);
+  dbQuery($updateSQL);
   die("發佈成功!");
 }
 

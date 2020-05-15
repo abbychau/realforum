@@ -10,8 +10,7 @@ if(modRank($fid)==0 && $gUserGroup <= 8){die("Access Denied");}
 
 if (isset($_POST["fid"])) {
 
-    $p = array_map('mysql_real_escape_string', $_POST);
-    dbQuery("UPDATE zf_contenttype SET css='{$p['css']}' WHERE id='{$p['fid']}'");
+    dbQuery("UPDATE zf_contenttype SET css=? WHERE id=?",[$p['css'],$p['fid']]);
     header("Location: /viewforum.php?fid=$fid");
 
 }

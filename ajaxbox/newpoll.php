@@ -15,8 +15,8 @@ if ((isset($_POST["realdel"])) && ($_POST["realdel"] == "true")) {
 if($gId != dbRs("SELECT authorid FROM zf_contentpages WHERE id = {$tid}") && $gUserGroup < 8){die("Access Denied! pos:3");}else{$isAdmin=true;}
 
 if(!$isAdmin){die("Access Denied! pos:1");}
-	mysql_query("DELETE FROM zf_poll WHERE tid = {$tid}");
-	mysql_query("UPDATE zf_contentpages SET special = 0 where `id` = {$tid}");
+	dbQuery("DELETE FROM zf_poll WHERE tid = {$tid}");
+	dbQuery("UPDATE zf_contentpages SET special = 0 where `id` = {$tid}");
 	header("Location:/thread.php?tid={$tid}");
 }
 
@@ -36,8 +36,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "formnp")) {
 		GetSQLValueString($_POST['tid'], "int"),
 		GetSQLValueString(serialize($users),"text"));
 
-	mysql_query($insertSQL);
-	mysql_query("UPDATE zf_contentpages SET special = 1 where `id` = {$tid}");
+		dbQuery($insertSQL);
+		dbQuery("UPDATE zf_contentpages SET special = 1 where `id` = {$tid}");
 	
 	header("Location:/thread.php?tid={$tid}");
 }
@@ -50,8 +50,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
 	$mycheck = $_POST['option'];
 	if(sizeof($mycheck)==0){die("Please select an option at least.");}
 
-	$getReply = mysql_query("SELECT `option`, users FROM zf_poll WHERE tid={$tid}");
-	$row_getReply = mysql_fetch_assoc($getReply);
+	$row_getReply = dbRow("SELECT `option`, users FROM zf_poll WHERE tid={$tid}");
 	$string=$row_getReply['users'];
 	$users=unserialize($string);
 	
@@ -71,8 +70,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "poll")) {
 		$users[$mycheck-1][] = $gUsername;
 	}
 
-	mysql_query("UPDATE zf_poll SET users = '".serialize($users)."' WHERE tid = {$tid}");
-	mysql_free_result($getReply);
+	dbQuery("UPDATE zf_poll SET users = '".serialize($users)."' WHERE tid = {$tid}");
 	
 	header("Location:/thread.php?tid={$tid}");
 }

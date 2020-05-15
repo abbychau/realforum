@@ -3,7 +3,7 @@ include("Connections/zkizblog.php");
 include("include/common.inc.php");
 
 if($_GET['move']=="true"){
-	$_GET = array_map(safe, $_GET);
+	$_GET = array_map("intval", $_GET);
 	if(in_array(dbRs("SELECT symbol FROM zgame_maze WHERE x={$_GET['x']} AND y = {$_GET['y']} AND mazeid={$_GET['mazeid']} "),array("x","t","h"))){
 		//die("wall");
 	}else{

@@ -65,14 +65,13 @@
 			$filename = "../images/zoneicon/".time().".png";
 			imagepng($desired_gdim, $filename, 8);
 			ob_start(); imagejpeg($desired_gdim,NULL,80); $pngimagedata = ob_get_contents(); ob_end_clean();
-			$pngimagedata = mysql_real_escape_string($pngimagedata);
-			
+						
 			imagedestroy($desired_gdim);
 			//$filename = substr($filename,2,strlen($filename)-2);
 			}else{
 			$filename="";
 		}
-		//mysql_query("UPDATE zf_contenttype SET icon_blob='{$pngimagedata}' WHERE id={$typeid}");
+		//dbQuery("UPDATE zf_contenttype SET icon_blob='{$pngimagedata}' WHERE id={$typeid}");
 		dbQuery("UPDATE zf_contenttype SET icon='{$filename}' WHERE id={$typeid}");
 		dbQuery("UPDATE zf_user SET score1=score1-8 WHERE id={$gId}");
 		

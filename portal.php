@@ -60,9 +60,7 @@ $queryString_getConList = qryStrE("page", $_SERVER['QUERY_STRING']);
 
 
 //city size
-$q2 = sprintf("SELECT count(*) as ce FROM zf_reply a WHERE fid = %s", GetSQLValueString($gfid, "int"));
-$r2 = mysql_fetch_assoc(mysql_query($q2, $zkizblog));
-
+$r2 = dbRs("SELECT count(*) as ce FROM zf_reply a WHERE fid = %s", GetSQLValueString($gfid, "int"));
 
 $htmltitle = $htmltitle==""?$row_getType['name']:$htmltitle;
 $noguest = ($row_getType['allowguest'] == 0)?true:false;
@@ -87,7 +85,7 @@ include_once ("templatecode/header.php");
 	管理人員: <abbr title="(粗體:版主 斜體:版副)"><?php echo $master;?></abbr>
 </div>
 <div class="right" style="padding:10px;border-right:1px #CCC solid">
-<strong style="font-size:20px"><?php echo $r2['ce']; ?></strong><br />
+<strong style="font-size:20px"><?=$r2; ?></strong><br />
 帖子
 </div>
 <div class="right" style="padding:10px">

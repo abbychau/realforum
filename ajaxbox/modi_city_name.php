@@ -3,16 +3,16 @@
 	require_once('../Connections/zkizblog.php'); 
 	require_once('../include/common.inc.php');
 	
-	$typeid = mysql_real_escape_string($_GET['typeid']);
-	if($typeid==""){$typeid = mysql_real_escape_string($_POST['tid']);}
+	$typeid = intval($_GET['typeid']);
+	if($typeid==""){$typeid = intval($_POST['tid']);}
 	
 	//authorize
 	if(modRank($typeid)==0 && $gUserGroup <= 8){die("Access Denied");}
 	
 	if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		
-		$p = array_map('mysql_real_escape_string', $_POST);
-		dbQuery("UPDATE zf_contenttype SET name='{$p['intro']}' WHERE id='{$p['tid']}'");
+		
+		dbQuery("UPDATE zf_contenttype SET name=? WHERE id=?",[$_POST['intro'],$_POST['tid']]);
 		dbQuery("UPDATE zf_user SET score1=score1-1 WHERE id=$gId");
 		header("Location: /viewforum.php?fid=$typeid");
 		

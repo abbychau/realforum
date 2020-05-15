@@ -1,8 +1,8 @@
 <?php require_once('Connections/zkizblog.php'); 
 	//////////////////////
-	$row_getinfo = dbRow("SELECT * FROM zf_item WHERE uid = $gId") or die(mysql_error());
+	$row_getinfo = dbRow("SELECT * FROM zf_item WHERE uid = $gId");
 	//////////////////////
-	$moneyHeld = dbRs("SELECT score1 FROM zf_user WHERE id = $gId") or die(mysql_error());
+	$moneyHeld = dbRs("SELECT score1 FROM zf_user WHERE id = $gId");
 	/////////////////////
 	if (isset($_POST["MM_update"])) {
 		if($_POST["MM_update"]=="1"){$word = "orange";$price="10";}

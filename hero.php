@@ -6,25 +6,19 @@ $currentPage = $_SERVER["PHP_SELF"];
 if ((isset($_POST["reg"])) && ($_POST["reg"] == "reg")) {
 
 /////GET AND DIE on score1 < certain
-$query_getMoney = sprintf("SELECT score1 FROM zf_user a WHERE a.id = %d", $gId);
-$getMoney = mysql_query($query_getMoney, $zkizblog) or die(mysql_error());
-$row_getMoney = mysql_fetch_assoc($getMoney);
-if($row_getMoney['score1']<100){die("你不足$100 呢!");}
-mysql_free_result($getMoney);
+if($my['score1']<100){die("你不足$100 呢!");}
+
 
 /////INSERT
 $insertsql = "INSERT INTO `zf_hero` (`zid`, `job`) VALUES ('".$gId."', '".$_POST['job']."')";
-mysql_query($insertsql, $zkizblog) or die(mysql_error());
+dbQuery($insertsql);
 
 $insertsql2 = "UPDATE `zf_user` SET score1 = score1 - 100 WHERE id = $gId";
-mysql_query($insertsql2, $zkizblog) or die(mysql_error());
+dbQuery($insertsql2);
 }
 
 /////GET user info
-$query_getUserInfo = sprintf("SELECT * FROM zf_user a, zf_view_authorgj b, zf_hero c WHERE a.id=b.authorid AND a.id=c.zid AND a.id = %d", $gId);
-$getUserInfo = mysql_query($query_getUserInfo, $zkizblog) or die(mysql_error());
-$row_getUserInfo = mysql_fetch_assoc($getUserInfo);
-$totalRows_getUserInfo = mysql_num_rows($getUserInfo);
+$row_getUserInfo = dbRow("SELECT * FROM zf_user a, zf_view_authorgj b, zf_hero c WHERE a.id=b.authorid AND a.id=c.zid AND a.id = %d", $gId);
 
 
 $lv = round(pow(($row_getUserInfo['postnum']*12)+$row_getUserInfo['exp'],0.909)/30);

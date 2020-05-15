@@ -1,6 +1,6 @@
 <?php
 require_once('Connections/zkizblog.php');
-mysql_select_db($database_zkizblog, $zkizblog);
+
 if($_GET['prop'] == "rand"){
 $tn = dbRs("SELECT id FROM zf_contentpages ORDER BY rand() LIMIT 1");
 }
