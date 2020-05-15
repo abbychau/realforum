@@ -17,7 +17,7 @@
 		$redis->delete($strGrabSQL);
 	}
 	
-	$attentionInfo = dbAr($strGrabSQL, 7200);
+	$attentionInfo = dbAr($strGrabSQL,[], 7200);
 	
 
 	

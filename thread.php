@@ -160,7 +160,7 @@ if ($row_getThread['special'] == 4) {
 }
 
 
-$totalRows_getReply = dbRs("SELECT count(1) as ce FROM zf_reply WHERE tid = {$gTid}",60); //get total rows
+$totalRows_getReply = dbRs("SELECT count(1) as ce FROM zf_reply WHERE tid = {$gTid}",[],60); //get total rows
 $totalPages_getReply = ceil($totalRows_getReply / $maxRows_getReply) - 1; //totalpage
 
 
@@ -168,7 +168,7 @@ if ($_GET['lastpage'] == "1") {
     header("location:thread.php?tid={$gTid}&page=$totalPages_getReply#lastpost");
 }
 
-$bannedZid = dbAr("SELECT target_zid FROM zf_relation WHERE source_zid = $gId AND relation_type = 1",60); //1=ban 2=friend
+$bannedZid = dbAr("SELECT target_zid FROM zf_relation WHERE source_zid = $gId AND relation_type = 1",[],60); //1=ban 2=friend
 $bannedZid = groupAssoc($bannedZid, 'target_zid');
 
 $getReply = dbAr("

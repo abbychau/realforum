@@ -30,7 +30,7 @@
 	$htmltitle = "RealForum 首頁"; 
 	
 	
-	$rfHotTopic = dbAr("SELECT (views+commentnum*3) as rank, a.authorid, a.id as tid, b.id as fid, commentnum, a.title as title, b.name as forumname FROM `zf_contentpages` a, `zf_contenttype` b where a.type = b.id AND cate <>6 AND datediff(CURRENT_TIMESTAMP, create_timestamp) < 7 ORDER BY rank DESC LIMIT 50", 7200);
+	$rfHotTopic = dbAr("SELECT (views+commentnum*3) as rank, a.authorid, a.id as tid, b.id as fid, commentnum, a.title as title, b.name as forumname FROM `zf_contentpages` a, `zf_contenttype` b where a.type = b.id AND cate <>6 AND datediff(CURRENT_TIMESTAMP, create_timestamp) < 7 ORDER BY rank DESC LIMIT 50",[], 7200);
 	$hottedFid = array();
 	foreach($rfHotTopic as $k=>$v){
 		if(!in_array($v['fid'],$hottedFid)){
@@ -45,8 +45,8 @@
 
 	usort($hotTopics, function ($a, $b){return strcmp($a["rank"], $b["rank"]);});
 	
-	$rbHotTopic = dbRow("SELECT a.id, c.pic, c.username, blogname, title, content, commentnum,datetime FROM  `zb_contentpages` a, zb_user b, zf_user c WHERE b.username=c.username AND a.ownerid = b.id AND b.blacklisted = 0 AND a.datetime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY views DESC LIMIT 1",3600);
-	$birthday = dbAr("SELECT id,username,birthday FROM zf_user WHERE birthday =  CURDATE()", 3600);
+	$rbHotTopic = dbRow("SELECT a.id, c.pic, c.username, blogname, title, content, commentnum,datetime FROM  `zb_contentpages` a, zb_user b, zf_user c WHERE b.username=c.username AND a.ownerid = b.id AND b.blacklisted = 0 AND a.datetime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY views DESC LIMIT 1",[],3600);
+	$birthday = dbAr("SELECT id,username,birthday FROM zf_user WHERE birthday =  CURDATE()",[], 3600);
 	
 	$headAdv = dbRow("SELECT content, username FROM zf_advertisement_record a, zf_user b WHERE a.zid = b.id AND advertisement_id = 1 ORDER BY a.id DESC LIMIT 1");
 	

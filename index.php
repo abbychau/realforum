@@ -39,9 +39,9 @@
 		$getForumsInPerfBoard=dbAr("SELECT postcount, id, name, allowguest, icon FROM zf_contenttype WHERE id IN(SELECT fid FROM zf_favourite_board WHERE zid = {$my['id']}) ORDER BY postcount DESC");
 	}
 	
-	$newTopics = dbAr("SELECT a.authorid, a.id as tid, b.id as fid, commentnum, a.title as title, b.name as forumname, authorusername, lastdatetime, lastid, a.lastusername FROM `zf_contentpages` a, `zf_contenttype` b where a.type = b.id AND cate = $gCate AND isshow = 1 ORDER BY a.lastdatetime DESC LIMIT 20",60);
+	$newTopics = dbAr("SELECT a.authorid, a.id as tid, b.id as fid, commentnum, a.title as title, b.name as forumname, authorusername, lastdatetime, lastid, a.lastusername FROM `zf_contentpages` a, `zf_contenttype` b where a.type = b.id AND cate = $gCate AND isshow = 1 ORDER BY a.lastdatetime DESC LIMIT 20",[],60);
 	
-	$rbHotTopic = dbRow("SELECT a.id, c.pic, c.username, blogname, title, content, commentnum,datetime FROM  `zb_contentpages` a, zb_user b, zf_user c WHERE b.username=c.username AND a.ownerid = b.id AND b.blacklisted = 0 AND a.datetime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY views DESC LIMIT 1",3600);
+	$rbHotTopic = dbRow("SELECT a.id, c.pic, c.username, blogname, title, content, commentnum,datetime FROM  `zb_contentpages` a, zb_user b, zf_user c WHERE b.username=c.username AND a.ownerid = b.id AND b.blacklisted = 0 AND a.datetime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY views DESC LIMIT 1",[],3600);
 	//$birthday = dbAr("SELECT id,username,birthday FROM zf_user WHERE birthday =  CURDATE()", 3600);
 	
 	$headAdv = cacheGet("RF_AD_1");;
@@ -51,7 +51,7 @@
 		$bannedZid = groupAssoc($bannedZid,'target_zid');
 	}
 	*/
-	$attentionInfo = dbAr($strGrabSQL, 7200);
+	$attentionInfo = dbAr($strGrabSQL, [],7200);
 
 	if(sizeof($attentionInfo)>0){
 		
@@ -77,7 +77,7 @@
 	}
 	$gHideCateInSidebar = true;
 	
-	$hotStockArr =dbAr("SELECT b.*, a.title FROM zf_contentpages a, zf_pages_tracing b WHERE a.id = b.tid AND a.type = 128 ORDER BY count_weekly DESC LIMIT 10", 600);
+	$hotStockArr =dbAr("SELECT b.*, a.title FROM zf_contentpages a, zf_pages_tracing b WHERE a.id = b.tid AND a.type = 128 ORDER BY count_weekly DESC LIMIT 10", [],600);
 
 if($_SERVER["HTTP_X_PJAX"]){
     if($my['notification']){

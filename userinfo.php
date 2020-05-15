@@ -48,7 +48,7 @@
 		$cateSql ORDER BY a.id
 		LIMIT $startRow_getConList, $maxRows_getConList";
 		
-		$totalRows_getConList = dbRs("SELECT count(distinct a.tid) FROM zf_reply a WHERE a.authorid = $gZid",3600*10);
+		$totalRows_getConList = dbRs("SELECT count(distinct a.tid) FROM zf_reply a WHERE a.authorid = $gZid",[],3600*10);
 		
 	}else if($_GET['show'] == "topic" || $_GET['show'] == ""){
 	

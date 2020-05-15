@@ -142,6 +142,6 @@
 	include(template("header"));
 	include(template("trade"));
 	if( $tmpTotal){
-		dbQuery("UPDATE zf_user SET score_trade = $tmpTotal  WHERE id = {$my['id']}",1800);
+		dbQuery("UPDATE zf_user SET score_trade = $tmpTotal  WHERE id = {$my['id']}",[],1800);
 	}
 	include(template("footer"));

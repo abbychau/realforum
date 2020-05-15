@@ -133,7 +133,7 @@
 	$extcon $isAtLeaseSQL $isMyPostSQL
 	order by $isshowsql $ordersql lastdatetime desc LIMIT $startRow_getConList, $maxRows_getConList");
 	//get total rows
-	$totalRows_getConList = $boardInfo["threadcount"]?$boardInfo["threadcount"]:dbRs("select count(*) from zf_contentpages where isshow !=0",3600);
+	$totalRows_getConList = $boardInfo["threadcount"]?$boardInfo["threadcount"]:dbRs("select count(*) from zf_contentpages where isshow <> 0",[],300);
 	$totalPages_getConList = ceil($totalRows_getConList / $maxRows_getConList) - 1; //and totalpage too ^^
 	
 	//query string
@@ -142,9 +142,9 @@
 	
 	//city size
 	if($gtype == 'selected'){
-		$citysize = dbRs("SELECT count(*) as ce FROM zf_reply WHERE fid IN (" . str_replace("_",",",$gfid) . ") ",60);
+		$citysize = dbRs("SELECT count(*) as ce FROM zf_reply WHERE fid IN (" . str_replace("_",",",$gfid) . ") ",[],60);
 		}else{
-		$citysize = dbRs("SELECT count(*) as ce FROM zf_reply ".($gfid==""?"":"WHERE fid = $gfid"),60);
+		$citysize = dbRs("SELECT count(*) as ce FROM zf_reply ".($gfid==""?"":"WHERE fid = $gfid"),[],60);
 	}
 	
 	$htmltitle = $htmltitle==""?$boardInfo['name']:$htmltitle;

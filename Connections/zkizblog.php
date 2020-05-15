@@ -20,7 +20,7 @@ if($_GET['app'] == "1" || $_COOKIE['is_app'] == "1"){
 if(!defined('LITE_HEADER')){
 	$hotZone = cacheGet("RF_HOT_ZONE");
 	$getNewTopic = cacheGet("RF_NEW_THREADS");//cron_15min.php
-	$recentTags = dbAr("SELECT tag FROM zm_tags ORDER BY timestamp DESC LIMIT 15", 60);
+	$recentTags = dbAr("SELECT tag FROM zm_tags ORDER BY timestamp DESC LIMIT 15",[], 60);
 	//$getNewTopic = dbAr("SELECT * FROM zf_contenttype WHERE cate <> 6 ORDER BY `datetime` DESC LIMIT 10",60);
 }
 /*

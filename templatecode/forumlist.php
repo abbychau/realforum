@@ -1,10 +1,10 @@
 <?
 	include_once($_SERVER['DOCUMENT_ROOT'].'/Connections/zkizblog.php');
 	if(!$getForums){
-		$getForums = dbAr("SELECT cate, postcount, id, name, allowguest FROM zf_contenttype ORDER BY postcount DESC", 3600);
+		$getForums = dbAr("SELECT cate, postcount, id, name, allowguest FROM zf_contenttype ORDER BY postcount DESC",[], 3600);
 	}
 	if(!$getCate){
-		$getCate = dbAr("SELECT `font-icon`, name, id FROM zf_cate ORDER BY `order`", 3600);
+		$getCate = dbAr("SELECT `font-icon`, name, id FROM zf_cate ORDER BY `order`",[], 3600);
 	}
 ?>
 
