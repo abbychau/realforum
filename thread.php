@@ -71,12 +71,16 @@ if ($_GET['message'] == "donate_success") {
 $currentPage = $_SERVER["PHP_SELF"] . (isset($_SERVER['QUERY_STRING']) ? "?" . htmlentities($_SERVER['QUERY_STRING']) : "");
 $currentPagePure = $_SERVER["PHP_SELF"];
 
-$row_getThread = dbRow("SELECT is_closed,donation, isdigest, commentnum, views, a.title, type, authorid, username, special, isshow FROM zf_contentpages a, zf_user c WHERE c.id = a.authorid AND a.id = {$gTid}");
+$row_getThread = dbRow("SELECT is_closed,donation, isdigest, commentnum, views, a.title, type, authorid, username, special, isshow, no_ads
+FROM zf_contentpages a, zf_user c WHERE c.id = a.authorid AND a.id = {$gTid}");
 // die($row_getThread['authorid']."X");
 // if (sizeof($row_getThread) == 0 || $row_getThread['authorid'] == 14 || $row_getThread['authorid'] == 830) {
 //     //screenMessage("錯誤", "找不到主題或主題已被刪除。");
 //     header("location:https://articles.zkiz.com/?rfid=$gTid");
 // }
+if($row_getThread['no_ads']=='1'){
+    $gNoAds= true;
+}
 if ($row_getThread['type'] == "") {
     screenMessage("錯誤", "分類錯誤");
 }
@@ -91,9 +95,6 @@ if ($row_getThread['type'] == 119 && $gUserGroup < 5) {
 
 //END of handling
 $boardInfo = dbRow("SELECT * FROM zf_contenttype WHERE id = {$row_getThread['type']}");
-if ($boardInfo['cate'] == 6 || $boardInfo['id'] == 44) {
-    $gNoAds = true;
-}
 
 if (in_array($gId, explode(",", $boardInfo['banned_member']))) {
     $is_banned = true;

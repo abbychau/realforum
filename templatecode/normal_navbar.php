@@ -1,6 +1,6 @@
 <style scoped>
 .navbar-inverse{background:#9f7973}
-.navbar-inverse .navbar-nav>li>a,.navbar-inverse .navbar-brand{color:#CCC}
+.navbar-inverse .navbar-nav>li>a,.navbar-inverse .navbar-brand{color:#EEE}
 .navbar-nav>li>a{padding:0.8em;color:white}
 .navbar .container{}
 .navbar-brand{padding:0.7em 1em 0.3em 1em;}
@@ -9,12 +9,15 @@
 .navbar-brand{height:inherit}
 .navbar .top-search-bar{width:130px;margin-top:0.4em;margin-bottom:0;}
 #navbar_searchfield::-webkit-input-placeholder {color: #DDD;}
+#navbar_searchfield::placeholder{
+	color:#DDD
+}
 #navbar_searchfield{
 	box-shadow: none;
 	color:#DDD;
 	background:transparent;
 	border:0;
-	border-bottom:2px #DDD solid;
+	border-bottom:2px #EEE solid;
 }
 #pm_num,#notify{
     position: absolute;

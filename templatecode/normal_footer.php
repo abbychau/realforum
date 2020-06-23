@@ -61,9 +61,8 @@
             <a onclick="createCookie('rf_template','mobile',30);window.location.reload();">使用舊手機版</a>  |
             <a onclick="createCookie('rf_template','normal',30);window.location.reload();">使用新版</a>
             <br />
-            <button type="button" class="btn btn-primary">   <span class='glyphicon glyphicon-link'></span> ZKIZ on Facebook  </button>
-            <br />
-            <a href="/whatisrf.php">甚麼是RealForum</a>
+
+            <a href="/whatisrf.php">甚麼是RealForum</a> | <a href="https://readme.zkiz.com">Code Documentations</a>
             <br />
 
             <a href="/keiji.php?to=<?=base64_encode(curURL());?>" target="_parent" id='split_mode'>分欄模式</a> |

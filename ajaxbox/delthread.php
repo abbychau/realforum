@@ -72,6 +72,14 @@
 			dbQuery("UPDATE zf_contentpages SET is_closed = 0 WHERE id = $tid");
 			$stract = "開放";
 			break;
+			case 11;
+			dbQuery("UPDATE zf_contentpages SET no_ads=1 WHERE id=$tid");
+			$stract = "禁廣告";
+			break;
+			case 12:
+			dbQuery("UPDATE zf_contentpages SET no_ads=0 WHERE id=$tid");
+			$stract = "解除禁廣告";
+			break;
 		}
 		/*
 		dbQuery("UPDATE zf_contenttype a SET
@@ -116,6 +124,10 @@
 				<input type="radio" name="adminact" value="3" />解除置頂<br />
 				<input type="radio" name="adminact" value="4" />精華
 				<input type="radio" name="adminact" value="5" />解除精華<br />
+
+				<input type="radio" name="adminact" value="11" />禁廣告
+				<input type="radio" name="adminact" value="12" />解除禁廣告<br />
+
 				<input type="radio" name="adminact" value="9" />關閉(不能再回覆)
 				<input type="radio" name="adminact" value="10" />開放(可回覆)<br />
 				<input type="radio" name="adminact" value="6" />移動主題

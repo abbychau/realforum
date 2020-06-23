@@ -225,7 +225,7 @@
 		</div>
 		<div id='smileyContainer' style='display:none;height:300px;overflow-y:scroll'></div>
 		
-		<?php if(!$isLog ||  $my['postnum'] < $g_low_post_captcha ){ ?>
+		<?php if(!$isLog ||  $my['postnum'] < $RFG['no_for_no_captcha'] ){ ?>
 			<div style='margin-top:3px'>
 			發貼總數五篇以下的會員需要輸入Captcha: <br />
 				<script src='https://www.google.com/recaptcha/api.js'></script>

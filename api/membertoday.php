@@ -4,7 +4,7 @@ if($_GET['fid']!=""){
 $ArrFiltrate=array("'",";","union"); 
 $fid = str_replace($ArrFiltrate,"",$_GET['fid']);
 $fidq = "a.type = ".$fid." AND";
-$forumname = dbRs("SELECT name from zf_contenttype where fid = ".$fid, $zkizblog);
+$forumname = dbRs("SELECT name from zf_contenttype where fid = ".$fid);
 
 }
 	header("Content-type: application/xml");

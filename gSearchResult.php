@@ -3,7 +3,9 @@
     include_once('include/common.inc.php');
 	
 	$gQ = htmlentities($_GET['q']);
-	
+	if(in_array($gQ,["中壢陪搖傳播妹"])){
+		$gNoAds = true;
+	}
 	$gBoard = intval($_GET['board']);
     $htmltitle="全文搜尋 - $gQ";
     $relatedTags = getRelatedTag($gQ);

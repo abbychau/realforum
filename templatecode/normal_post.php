@@ -83,7 +83,7 @@
 	
 	
 	
-	<?php if(!$isLog ||  $my['postnum'] < $g_low_post_captcha ){ ?>
+	<?php if(!$isLog ||  $my['postnum'] < $RFG['no_for_no_captcha'] ){ ?>
 				<script src='https://www.google.com/recaptcha/api.js'></script>
 				<div class="g-recaptcha" data-sitekey="6LdZOgkTAAAAAAOpVl8Bfdky9zdmjho7wSURgBnm"></div>
 	<?php } ?>

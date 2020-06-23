@@ -29,11 +29,10 @@ $titles = dbRow("SELECT title,subtitle FROM zf_contentpages WHERE id = {$tid}");
 
 if ((isset($_POST["title"])) && ($_POST["title"] != "")) {
 	$page = intval($_POST['page']);
-	$title = $_POST['title'];
-	$subtitle = $_POST['subtitle'];
+	
 	dbQuery(
 		"UPDATE zf_contentpages SET title = ?, subtitle = ? WHERE id=?",
-		[$title, $subtitle, $tid]
+		[$_POST['title'], $_POST['subtitle'], $tid]
 	);
 
 	header("Location:/thread.php?tid={$tid}&page={$page}");

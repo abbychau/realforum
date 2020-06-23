@@ -22,21 +22,19 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if (isset($_POST["MM_update"])) {
     if ($_POST["MM_update"] == "intro") {
-        $updateSQL = sprintf(
-            "UPDATE zf_contenttype SET `intro`=%s WHERE id=%s",
-            GetSQLValueString($_POST['intro'], "text"),
-            GetSQLValueString($_POST['tid'], "int")
+        dbQuery(
+            "UPDATE zf_contenttype SET `intro`=? WHERE id=?",
+            [
+                $_POST['intro'],
+                intval($_POST['tid'])
+            ]
         );
     }
 
     if ($_POST["MM_update"] == "notice") {
-        $updateSQL = sprintf(
-            "UPDATE zf_contenttype SET top_notice=%s WHERE id=%s",
-            GetSQLValueString($_POST['top_notice'], "text"),
-            GetSQLValueString($_POST['tid'], "int")
-        );
+        dbQuery("UPDATE zf_contenttype SET top_notice=? WHERE id=?",[$_POST['top_notice'],$_POST['tid']]);
     }
-    dbQuery($updateSQL);
+    
     header("Location:" . "/viewforum.php?fid=" . $_POST['tid']);
 }
 $row_getIntro = dbRow("SELECT * FROM zf_contenttype WHERE id = $typeid");

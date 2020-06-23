@@ -8,7 +8,6 @@
 	$title = "";
 	$tmpAtlist=array();
 	$fid = intval($_REQUEST['fid']);
-	$ip = getIP();
 	$type_info = dbRow("SELECT * FROM zf_contenttype WHERE id = {$fid}");
 	$blackwords[] = "<a href";
 	$blackwords[] = "http://www.facebook.com/profile.php";
@@ -35,7 +34,7 @@
 	
 	if(isset($_POST["posttype"])){
 		if($_POST['content']==""){screenMessage("發怖失敗","內容不可為空","");}
-		if(!$isLog ||  $my['postnum'] < $g_low_post_captcha ){
+		if(!$isLog ||  $my['postnum'] < $RFG['no_for_no_captcha'] ){
 			$code=$_POST['g-recaptcha-response'];
 			//$_POST['g-recaptcha-response'] / RECAPTCHA_V2_KEY / getIP()
 			$arrQuery = ["secret"=>RECAPTCHA_V2_KEY,"response"=>$_POST['g-recaptcha-response'],"remoteip"=>getIP()];
@@ -72,7 +71,7 @@
 			$lastTID = rfPosts::newThread(
 				$_POST['title'], 
 				$_POST['subtitle'], 
-				$fid, $_POST['content'], $picurl, $ip, $gId, 
+				$fid, $_POST['content'], $picurl, getIP(), $gId, 
 				$special, $price, $tags, ($_POST["also_subscribe"]==1));
 
 
@@ -128,7 +127,7 @@
 			$pid  = intval($_POST['pid']);
 			$pid = $pid<1?0:$pid;
 			
-			rfPosts::replyThread($fid, $tid, $pid, $_POST['content'], $picurl, $ip, $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
+			rfPosts::replyThread($fid, $tid, $pid, $_POST['content'], $picurl, getIP(), $gId,$gUsername, $price, $pageinfo['authorid'],($_POST["also_subscribe"]=="1"));
 			
 
 			if(!empty($arrAtList)){

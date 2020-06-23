@@ -69,7 +69,7 @@
 		<![endif]-->
 
 
-
+		<?php if(!$gNoAds){?>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({
@@ -77,7 +77,7 @@
                 enable_page_level_ads: true
             });
         </script>
-		
+		<?}?>
 		<style type='text/css'>
 			
 			<?if(""!=$_COOKIE['allfont']){$allfont=$_COOKIE['allfont'];}

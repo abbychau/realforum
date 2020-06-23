@@ -8,7 +8,7 @@
 	if ((isset($_POST["type"])) && ($_POST["type"] == "del")) {
 		$insertSQL = sprintf("delete from zf_bookmark where id = %s",
 		GetSQLValueString($_POST['id'], "int"));
-		dbQuery($insertSQL, $zkizblog);
+		dbQuery($insertSQL);
 		echo "1";
 		exit;
 	}
@@ -20,7 +20,7 @@
 		GetSQLValueString($gId, "int"),
 		GetSQLValueString(($_POST['name']==$gUsername?'1':'0'), "int"));
 		
-		dbQuery($insertSQL, $zkizblog);
+		dbQuery($insertSQL);
 		echo "1";
 		exit;
 	}

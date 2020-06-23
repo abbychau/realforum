@@ -4,7 +4,7 @@ include("include/common.inc.php");
 
 if($_GET['move']=="true"){
 	$_GET = array_map("intval", $_GET);
-	if(in_array(dbRs("SELECT symbol FROM zgame_maze WHERE x={$_GET['x']} AND y = {$_GET['y']} AND mazeid={$_GET['mazeid']} "),array("x","t","h"))){
+	if(in_array(dbRs("SELECT symbol FROM zgame_maze WHERE x=? AND y = ? AND mazeid = ? ",[$_GET['x'],$_GET['y'],$_GET['mazeid']]),array("x","t","h"))){
 		//die("wall");
 	}else{
 		dbQuery("UPDATE zgame_maze_user SET x={$_GET['x']}, y = {$_GET['y']} WHERE zid = $gId");

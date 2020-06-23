@@ -52,14 +52,13 @@
 	<?}?>
 <?}else{?>
 	
-	<div class='panel panel-default'>
-		
 		
 		<div class="btn-group" style='width:100%'>
 			<a href='/forums.php' class='btn btn-default' style='width:50%'>版塊列表</a>
 			<a href='/info_board_last_reply.php' class='btn btn-default' style='width:50%'>各區最後回覆</a>
+			
 		</div>
-	</div>
+
 <?}?>
 <div class='panel panel-default'>
 	<div class='panel-heading'>
